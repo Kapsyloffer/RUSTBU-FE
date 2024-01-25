@@ -1,25 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
+import fetch_moves from "./fetch_moves";
 
 const ShobuBoard = ({ color, home }) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
   const boardRef = useRef(null);
 
-  const handleClick = (row, col) => {
+  const handleClick = async (row, col) => {
     const clickedTile = `${home}-${color}-${row}-${col}`;
 
     if (highlightedTile && highlightedTile.includes(clickedTile)) {
       setHighlightedTile(null);
     } else {
-      const updatedHighlightedTile = [
-        clickedTile,
-        `${home}-${color}-${row - 1}-${col}`,
-        `${home}-${color}-${row + 1}-${col}`,
-        `${home}-${color}-${row}-${col - 1}`,
-        `${home}-${color}-${row}-${col + 1}`,
-        //TODO: FETCH MOVES USING WEBSOCKETS
-      ];
+      try {
+        
+        let updatedHighlightedTile = [
+          clickedTile,
+        ];
 
-      setHighlightedTile(updatedHighlightedTile);
+        let moves = await fetch_moves(null, home, color, row, col, true);
+        console.log(moves);
+        console.log(Array.isArray(moves));
+        const m = moves.map(tuple => {
+          const [x, y] = tuple;
+          updatedHighlightedTile.push(`${home}-${color}-${x}-${y}`)
+          return { x, y };
+        });
+
+        setHighlightedTile(updatedHighlightedTile);
+      } catch (error) {
+        console.error("Error fetching moves:", error);
+        // Handle errors here
+      }
     }
   };
 
