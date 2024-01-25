@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import fetch_moves from "./fetch_moves";
+import white from "./../img/white_tmp.png";
+import black from "./../img/black_tmp.png";
 
 const ShobuBoard = ({ color, home }) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
@@ -14,18 +16,20 @@ const ShobuBoard = ({ color, home }) => {
       try {
         
         let updatedHighlightedTile = [
-          clickedTile,
+          clickedTile
         ];
 
+        //Get possible movement positions
         let moves = await fetch_moves(null, home, color, row, col, true);
-        console.log(moves);
-        console.log(Array.isArray(moves));
+
+        //Highlight all possible movement tiles
         const m = moves.map(tuple => {
           const [x, y] = tuple;
           updatedHighlightedTile.push(`${home}-${color}-${x}-${y}`)
           return { x, y };
         });
 
+        //Highlight them; TODO: Make better?
         setHighlightedTile(updatedHighlightedTile);
       } catch (error) {
         console.error("Error fetching moves:", error);
@@ -50,15 +54,31 @@ const ShobuBoard = ({ color, home }) => {
 
   const renderShobuBoard = () => {
     const board = [];
-    for (let row = 0; row < 4; row++) {
-      for (let col = 0; col < 4; col++) {
+    for (let row = 0; row < 4; row++) 
+    {
+      for (let col = 0; col < 4; col++) 
+      {
+        //TODO: Break out tiles into own separate component.
         const squareColor = color === 'Black' ? 'dark' : 'light';
         const tileKey = `${home}-${color}-${row}-${col}`;
         const isHighlighted = highlightedTile && highlightedTile.includes(tileKey);
 
+        //Temp rock render solution
+        //TODO: Fetch positions and render.
+        let rock = null;
+        if (row === 0) 
+        {
+          rock = <img src={white} />;
+        } 
+        else if (row === 3) 
+        {
+          rock = <img src={black} />;
+        }
+
         board.push(
           <div key={tileKey} className={`square ${squareColor} ${isHighlighted ? 'highlighted' : ''}`} onClick={() => handleClick(row, col)}>
-            {isHighlighted && <div className="green-dot"></div>}
+            
+            {rock}
           </div>
         );
       }

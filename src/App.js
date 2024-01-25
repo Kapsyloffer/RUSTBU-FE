@@ -1,25 +1,18 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-import ShobuBoard from './components/ShobuBoard';
-import ropeImage from './img/rop.png'; 
+import Game from './components/Game';
+import Index from "./components/Index";
 
 function App() {
   return (
-    <div className="App">
-      <div className="bruh">
-        <div className="SHOBU-container">
-          <ShobuBoard color="Black" home="White" />
-          <ShobuBoard color="White" home="White" />
-        </div>
-        
-        <img src={ropeImage} alt="Rope" />
-
-        <div className="SHOBU-container">
-          <ShobuBoard color="White" home="Black" />
-          <ShobuBoard color="Black" home="Black" />
-        </div>
-      </div>
-    </div>
+    
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/game/" element={<Game />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
