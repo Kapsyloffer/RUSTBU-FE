@@ -11,8 +11,9 @@ const ws = new WebSocket("ws://localhost:4444/ws");
 
   ws.onmessage = (event) => {
     const msg = JSON.parse(event.data);
-    if(msg.type == "GameCreated") {
-      window.location.href = `./game/${msg.id}`;
+    if(msg.type === "GameCreated") {
+      console.log(msg.url);
+      window.location.href = `./game/${msg.url}`;
     }
   }
 
