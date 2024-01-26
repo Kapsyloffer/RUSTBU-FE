@@ -6,7 +6,7 @@ async function fetch_moves(url, h, b, x, y, aggr)
   {
       const packet = {
           type: "FetchMoves",
-          url: "testcase",
+          url: url,
           h: h,
           c: b,
           x: x,
@@ -19,7 +19,7 @@ async function fetch_moves(url, h, b, x, y, aggr)
       ws.onmessage = (event) => 
       {
           const msg = JSON.parse(event.data);
-          if (msg.type == "FetchedMoves") 
+          if (msg.type === "FetchedMoves") 
           {
               let parsed = parse_moves(msg.moves);
               console.log(typeof msg.moves);

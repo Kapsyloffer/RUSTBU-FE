@@ -3,7 +3,7 @@ import fetch_moves from "./fetch_moves";
 import white from "./../img/white_tmp.png";
 import black from "./../img/black_tmp.png";
 
-const ShobuBoard = ({ color, home }) => {
+const ShobuBoard = ({ color, home, url }) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
   const boardRef = useRef(null);
 
@@ -20,10 +20,10 @@ const ShobuBoard = ({ color, home }) => {
         ];
 
         //Get possible movement positions
-        let moves = await fetch_moves(null, home, color, row, col, true);
+        let moves = await fetch_moves(url, home, color, row, col, false);
 
         //Highlight all possible movement tiles
-        const m = moves.map(tuple => {
+        moves.map(tuple => {
           const [x, y] = tuple;
           updatedHighlightedTile.push(`${home}-${color}-${x}-${y}`)
           return { x, y };
@@ -68,11 +68,11 @@ const ShobuBoard = ({ color, home }) => {
         let rock = null;
         if (row === 0) 
         {
-          rock = <img src={white} />;
+          rock = <img src={white} alt=""/>;
         } 
         else if (row === 3) 
         {
-          rock = <img src={black} />;
+          rock = <img src={black} alt=""/>;
         }
 
         board.push(
