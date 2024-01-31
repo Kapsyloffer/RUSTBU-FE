@@ -52,6 +52,7 @@ body {
   align-items: center;
   justify-content: center;
   border: #000 1px solid;
+  border-radius: 5%;
 }
 
 .square img {
@@ -59,17 +60,3 @@ body {
   height: 50px;
 }
 
-.dark {
-  background-color: #5f462d;
-}
-
-.light {
-  background-color: #c7aa8e;
-}
-body {
-  background-color: #c8b496;
-}
-
-.square.highlighted {
-  background-color: #aaffaa; /* Highlighted background color */
-}

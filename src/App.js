@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
+import './boards.css';
 import Game from './components/Game';
 import Index from "./components/Index";
 

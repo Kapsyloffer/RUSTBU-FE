@@ -7,7 +7,6 @@ function make_moves(url, h, b, x1, x2, y1, y2, aggr)
 {
 
     if (aggr === false){
-        console.log("You a passive fella");
         action_p = {
         home_colour: h,
         board_colour: b,
@@ -18,17 +17,18 @@ function make_moves(url, h, b, x1, x2, y1, y2, aggr)
         aggr: aggr,
         }
     }else{
-        console.log("You an aggressive fella");
         action_a = {
-            home_colour: h,
-            board_colour: b,
-            x1: x1,
-            y1: y1,
-            x2: x2,
-            y2: y2,
-            aggr: aggr,
-        };
+        home_colour: h,
+        board_colour: b,
+        x1: x1,
+        y1: y1,
+        x2: x2,
+        y2: y2,
+        aggr: aggr,
+        }
     }
+    
+    console.log("AGGR is now: ", !aggr, "\n");
 
     if (action_p !== null && action_a !== null){
     const packet = {

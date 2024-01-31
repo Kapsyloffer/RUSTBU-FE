@@ -1,0 +1,27 @@
+.dark {
+    background-color: #3f3986;
+}
+
+.dark:hover {
+    background-color: #4a42a6;
+}
+
+.light {
+    background-color: #9176c4;
+}
+
+.light:hover {
+    background-color: #a586dd;
+}
+
+body {
+    background-color: #c8b496;
+}
+
+.square.highlighted {
+    background-color: #aaffaa; 
+}
+
+.square.highlighted:hover {
+    background-color: #77db77; 
+}

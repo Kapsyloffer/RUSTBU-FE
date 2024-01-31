@@ -22,7 +22,7 @@ async function fetch_moves(url, h, b, x, y, aggr)
           if (msg.type === "FetchedMoves") 
           {
               let parsed = parse_moves(msg.moves);
-              console.log(typeof msg.moves);
+              //console.log(typeof msg.moves);
               resolve(parsed);
           }
       };
