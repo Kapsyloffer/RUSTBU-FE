@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws://localhost:4444/ws");
+import ws from "./websocket_connection";
 
 async function fetch_moves(url, h, b, x, y, aggr) 
 {
@@ -50,13 +50,5 @@ function parse_moves(msg)
     return [];
   }
 }
-
-ws.onerror = (event) => {
-  console.error('WebSocket error:', event);
-};
-
-ws.onclose = (event) => {
-  console.log('WebSocket closed:', event);
-};
   
 export default fetch_moves;

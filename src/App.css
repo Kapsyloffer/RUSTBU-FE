@@ -19,6 +19,12 @@ body {
   margin-bottom: 20px; /* Adjust the vertical space between boards as needed */
 }
 
+/*Solely used to portray the boards from White's POW.*/
+.white_disp, .white_disp img
+{
+  transform: rotate(180deg);
+}
+
 .bruh
 {
   display: grid;
@@ -35,8 +41,8 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 1px; /* Adjust the gap between squares as needed */
-  margin: 0 auto; /* Center the grid horizontally */
+  gap: 1px; 
+  margin: 0 auto; 
 }
 
 .square {
@@ -54,11 +60,11 @@ body {
 }
 
 .dark {
-  background-color: #769656;
+  background-color: #5f462d;
 }
 
 .light {
-  background-color: #eeeed2;
+  background-color: #c7aa8e;
 }
 body {
   background-color: #c8b496;

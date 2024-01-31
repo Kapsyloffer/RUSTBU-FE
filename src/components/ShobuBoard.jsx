@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import fetch_moves from "./fetch_moves";
 import white from "./../img/white_tmp.png";
 import black from "./../img/black_tmp.png";
+import make_moves from './make_moves';
+let aggr = false;
+//Previously selected tile, used for movement.
+let prev_row = null;
+let prev_col = null;
 
 const ShobuBoard = ({ color, home, url }) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
@@ -11,6 +16,10 @@ const ShobuBoard = ({ color, home, url }) => {
     const clickedTile = `${home}-${color}-${row}-${col}`;
 
     if (highlightedTile && highlightedTile.includes(clickedTile)) {
+
+      make_moves(url, home, color, prev_row, row, prev_col, col, aggr);
+      aggr = !aggr;
+
       setHighlightedTile(null);
     } else {
       try {
@@ -19,8 +28,11 @@ const ShobuBoard = ({ color, home, url }) => {
           clickedTile
         ];
 
+        prev_row = row;
+        prev_col = col;
+
         //Get possible movement positions
-        let moves = await fetch_moves(url, home, color, row, col, false);
+        let moves = await fetch_moves(url, home, color, row, col, aggr);
 
         //Highlight all possible movement tiles
         moves.map(tuple => {
@@ -66,12 +78,9 @@ const ShobuBoard = ({ color, home, url }) => {
         //Temp rock render solution
         //TODO: Fetch positions and render.
         let rock = null;
-        if (row === 0) 
-        {
+        if (row === 0) {
           rock = <img src={white} alt=""/>;
-        } 
-        else if (row === 3) 
-        {
+        } else if (row === 3) {
           rock = <img src={black} alt=""/>;
         }
 
