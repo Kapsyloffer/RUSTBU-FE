@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import fetch_moves from "./fetch_moves";
+import fetch_moves from "./Calls/fetch_moves";
 import white from "./../img/white_tmp.png";
 import black from "./../img/black_tmp.png";
-import make_moves from './make_moves';
+import make_moves from './Calls/make_moves';
 let aggr = false;
 //Previously selected tile, used for movement.
 let prev_row = null;
@@ -11,6 +11,7 @@ let prev_col = null;
 const ShobuBoard = ({ color, home, url }) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
   const boardRef = useRef(null);
+  //console.log(home, color);
 
   const handleClick = async (row, col) => {
     const clickedTile = `${home}-${color}-${row}-${col}`;
@@ -19,7 +20,7 @@ const ShobuBoard = ({ color, home, url }) => {
 
       make_moves(url, home, color, prev_row, row, prev_col, col, aggr);
       aggr = !aggr;
-
+      console.log(aggr);
       setHighlightedTile(null);
     } else {
       try {

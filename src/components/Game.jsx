@@ -2,12 +2,13 @@ import React from 'react';
 import ShobuBoard from './ShobuBoard'; // Make sure to provide the correct path
 import ropeImage from './../img/rop.png'; 
 import {useParams } from 'react-router-dom';
-import fetch_state from './fetch_state';
+import fetch_state from './Calls/fetch_state';
 
 const Game = () => {
   const { game_id } = useParams();
   console.log(game_id);
-  fetch_state(game_id);
+  let gamestate= fetch_state(game_id);
+  console.log(gamestate);
   return (
     <div className="bruh">
       <div className="SHOBU-container">

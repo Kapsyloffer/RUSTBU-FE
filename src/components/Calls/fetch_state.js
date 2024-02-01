@@ -1,6 +1,6 @@
 import ws from "./websocket_connection";
-import game_state from "./game_state";
-import game_board from "./game_board";
+import GameState from "./../Classes/GameState";
+import Board from "./../Classes/Board";
 
 async function fetch_state(url) {
   return new Promise((resolve, reject) => {
@@ -54,15 +54,14 @@ function parse_game(input)
             match[5].split(', ').map(cell => cell.trim()),
             match[6].split(', ').map(cell => cell.trim())
         ];
-        console.log(color, home, state);
-        boards.push(color, home, state);
+        var b = new Board(color, home, state)
+        //console.log(b);
+        boards.push(b);
     }
 
     const turn = gameMatch[4];
 
-    console.log(player_b, player_w, boards, turn);
-
-    //return g;
+    return new GameState(player_b, player_w, boards, turn);
 }
 
 export default fetch_state;

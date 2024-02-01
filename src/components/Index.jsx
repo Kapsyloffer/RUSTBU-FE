@@ -1,4 +1,4 @@
-import new_game from "./new_game";
+import new_game from "./Calls/new_game";
   
 const Index = () => {
     return ( 
