@@ -7,7 +7,7 @@ class GameState{
     }
 
     get_board(h, c){
-        for (let b in this.boards){
+        for (let b of this.boards){
             if (b.check(c, h)){
                 return b;
             }

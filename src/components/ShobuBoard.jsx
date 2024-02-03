@@ -8,7 +8,7 @@ let aggr = false;
 let prev_row = null;
 let prev_col = null;
 
-const ShobuBoard = ({ color, home, url }) => {
+const ShobuBoard = ({ color, home, url, state}) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
   const boardRef = useRef(null);
   //console.log(home, color);
@@ -67,6 +67,7 @@ const ShobuBoard = ({ color, home, url }) => {
 
   const renderShobuBoard = () => {
     const board = [];
+    const boardstate = state.get_board(home, color).state;
     for (let row = 0; row < 4; row++) 
     {
       for (let col = 0; col < 4; col++) 
@@ -79,10 +80,17 @@ const ShobuBoard = ({ color, home, url }) => {
         //Temp rock render solution
         //TODO: Fetch positions and render.
         let rock = null;
-        if (row === 0) {
-          rock = <img src={white} alt=""/>;
-        } else if (row === 3) {
-          rock = <img src={black} alt=""/>;
+        switch (boardstate[row][col])
+        {
+          case "White":
+            rock = <img src={white} alt=""/>;
+            break;
+          case "Black":
+            rock = <img src={black} alt=""/>;
+            break;
+          default:
+            break;
+
         }
 
         board.push(

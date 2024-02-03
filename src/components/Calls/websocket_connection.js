@@ -1,5 +1,11 @@
 const ws = new WebSocket("ws://localhost:4444/ws");
 
+
+ws.onopen = () => {
+    console.log("We're open for business");      
+};
+
+
 ws.onerror = (event) => {
     console.error('WebSocket error:', event);
 };

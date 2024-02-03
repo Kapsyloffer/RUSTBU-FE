@@ -25,6 +25,11 @@ body {
   transform: rotate(180deg);
 }
 
+.infotxt
+{
+  font-size: 9px;;
+}
+
 .bruh
 {
   display: grid;

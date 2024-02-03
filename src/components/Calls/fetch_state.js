@@ -4,20 +4,17 @@ import Board from "./../Classes/Board";
 
 async function fetch_state(url) {
   return new Promise((resolve, reject) => {
-    ws.onopen = () => {
-      const packet = {
-        type: "FetchGame",
-        url: url,
-      };
-
-      ws.send(JSON.stringify(packet));
+    const packet = {
+      type: "FetchGame",
+      url: url,
     };
+
+    ws.send(JSON.stringify(packet));
 
     ws.onmessage = (event) => {
       const msg = JSON.parse(event.data);
       if (msg.type === "FetchedGame") {
         let parsed = parse_game(msg.state);
-        //console.log(msg.state);
         resolve(parsed);
       }
     };
