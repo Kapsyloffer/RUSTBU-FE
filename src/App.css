@@ -40,6 +40,8 @@ body {
 {
   width: 475px;
   margin: 30px auto;
+  pointer-events: none; 
+  user-select: none; 
 }
 
 .board {
@@ -65,3 +67,8 @@ body {
   height: 50px;
 }
 
+
+.bruh.white, .bruh.white img
+{
+    transform: rotate(180deg);
+}

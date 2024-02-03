@@ -39,16 +39,23 @@ const Game = () => {
     }
   }, []);
 
-//Fetch rockvision(TM) for the white player
-useEffect(() => {
-  if (true) {
-    import('./../white.css').then(() => {
-      console.log('CSS file imported successfully!');
-    }).catch(error => {
-      console.error('Error importing CSS file:', error);
-    });
-  }
-}, []);
+
+
+//Flipped board display check
+const [flipped, setFlipped] = useState(Cookies.get('flipped') === 'true');
+const [white, setWhite] = useState(Cookies.get('white') === 'true');
+
+const toggleFlip = () => {
+  const newFlipped = !flipped;
+  setFlipped(newFlipped);
+  Cookies.set('flipped', newFlipped, { expires: 7 }); // Update the cookie value
+};
+
+const toggleWhite  = () => {
+  const newWhite = !white;
+  setWhite(newWhite);
+  Cookies.set('white', newWhite, { expires: 7 }); // Update the cookie value
+};
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -56,25 +63,37 @@ useEffect(() => {
 
   return (
     <div className="infotxt">
-    <span>You are: {Cookies.get("playerID")}</span><br/>
-    <span>PlayerB: {gamestate.player_b}</span><br/>
-    <span>PlayerW: {gamestate.player_w}</span><br/>
-    <span>Turn:    {gamestate.turn}</span>
-    <div className="bruh">
-      <div className="SHOBU-container">
-        <ShobuBoard color="Black" home="White" url={game_id} state={gamestate}/>
-        <ShobuBoard color="White" home="White" url={game_id} state={gamestate}/>
+      <span>You are: {Cookies.get("playerID")}</span><br/>
+      <span>PlayerB: {gamestate.player_b}</span><br/>
+      <span>PlayerW: {gamestate.player_w}</span><br/>
+      <span>Turn:    {gamestate.turn}</span><br/>
+      <span>Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
+      <span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>
+  
+      <div className={`bruh ${white ? 'white' : ''}`}>
+        <div className="SHOBU-container">
+          <ShobuBoard color="Black" home="White" url={game_id} state={gamestate}/>
+          <ShobuBoard color="White" home="White" url={game_id} state={gamestate}/>
+        </div>
+  
+        <img src={ropeImage} alt="Rope" />
+  
+        <div className="SHOBU-container">
+          {flipped ? (
+            <>
+              <ShobuBoard color="Black" home="Black" url={game_id} state={gamestate} />
+              <ShobuBoard color="White" home="Black" url={game_id} state={gamestate} />
+            </>
+          ) : (
+            <>
+              <ShobuBoard color="White" home="Black" url={game_id} state={gamestate} />
+              <ShobuBoard color="Black" home="Black" url={game_id} state={gamestate} />
+            </>
+          )}
+        </div>
       </div>
-
-      <img src={ropeImage} alt="Rope" />
-
-      <div className="SHOBU-container">
-        <ShobuBoard color="White" home="Black" url={game_id} state={gamestate}/>
-        <ShobuBoard color="Black" home="Black" url={game_id} state={gamestate}/>
-      </div>
-    </div>
     </div>
   );
-};
+}  
 
 export default Game;
