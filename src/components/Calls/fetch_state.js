@@ -4,25 +4,39 @@ import Board from "./../Classes/Board";
 
 async function fetch_state(url) {
   return new Promise((resolve, reject) => {
-    const packet = {
-      type: "FetchGame",
-      url: url,
-    };
+    if (ws.readyState === WebSocket.OPEN) {
+      sendFetchRequest();
+    } else {
+      ws.addEventListener("open", () => {
+        sendFetchRequest();
+      });
+    }
 
-    ws.send(JSON.stringify(packet));
+    function sendFetchRequest() {
+      const packet = {
+        type: "FetchGame",
+        url: url,
+      };
 
-    ws.onmessage = (event) => {
-      const msg = JSON.parse(event.data);
-      if (msg.type === "FetchedGame") {
-        let parsed = parse_game(msg.state);
-        resolve(parsed);
-      }
-    };
+      ws.send(JSON.stringify(packet));
 
-    // Handle errors or timeouts
-    ws.onerror = (error) => {
-      reject(error);
-    };
+      ws.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+        if (msg.type === "FetchedGame") {
+          try {
+            const parsed = parse_game(msg.state);
+            resolve(parsed);
+          } catch (error) {
+            reject(error);
+          }
+        }
+      };
+
+      // Handle errors or timeouts
+      ws.onerror = (error) => {
+        reject(error);
+      };
+    }
   });
 }
 
