@@ -4,6 +4,7 @@ import ropeImage from "./../img/rop.png";
 import { useParams } from "react-router-dom";
 import fetch_state from "./Calls/fetch_state";
 import Cookies from "js-cookie";
+import join_game from "./Calls/join_game";
 
 const Game = () => {
   const { game_id } = useParams();
@@ -22,6 +23,7 @@ const Game = () => {
         console.log("Error fetching game state:", error);
       } finally {
         setIsLoading(false); 
+        await join_game(game_id, Cookies.get("playerID"));
       }
     };
 
