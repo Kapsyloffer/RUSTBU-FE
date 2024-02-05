@@ -23,13 +23,17 @@ async function fetch_moves(url, h, b, x, y, aggr) {
         if (!aggr) {
           resolve(parsed);
         } else {
-          let [dx, dy] = get_size();
-        resolve([[(packet.x - dx), (packet.y - dy)]]); //This is stupid
+          let [dx, dy, dc] = get_size();
+          if(dc !== packet.c){
+            resolve([[(packet.x - dx), (packet.y - dy)]]); //This is stupid
+          }
+          else{
+            resolve([]);
+          }
         }
       };
     };
 
-    // Handle errors or timeouts
     ws.onerror = (error) => {
       reject(error);
     };
