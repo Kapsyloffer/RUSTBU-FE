@@ -9,6 +9,10 @@ body {
   height: 100vh;
 }
 
+.bruh{
+  max-width: 80vw;
+}
+
 .SHOBU-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

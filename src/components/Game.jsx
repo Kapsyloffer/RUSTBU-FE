@@ -12,27 +12,40 @@ const Game = () => {
   const [isLoading, setIsLoading] = useState(true); 
   const [timedOut, setTimedOut] = useState(false); 
 
-  //Fetch game data
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
+  // Fetch game data
+useEffect(() => {
+  const fetchData = async () => {
+    try {
 
-        setTimeout(() => {
-          setTimedOut(true);
-        }, 5000);
+      setTimeout(() => {
+        setTimedOut(true);
+      }, 5000);
 
-        set_state(await fetch_state(game_id));
+      let fetched = await fetch_state(game_id);
+
+      if (get_state().get_turn() === fetched.get_turn()) {
+        return;
+      } else {
+        set_state(fetched);
         console.log(get_state());
-      } catch (error) {
-        console.log("Error fetching game state:", error);
-      } finally {
-        setIsLoading(false); 
       }
-    };
+    } catch (error) {
+      console.log("Error fetching game state:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [game_id]);
+  // Initial fetch
+  fetchData();
+
+  // Fetch at intervals
+  const intervalId = setInterval(fetchData, 500);
+
+  return () => {
+    clearInterval(intervalId); // Cleanup the interval when the component unmounts
+  };
+}, [game_id]);
 
   
 //Set player cookie to random String.
