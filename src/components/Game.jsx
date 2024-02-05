@@ -10,12 +10,18 @@ const Game = () => {
   const { game_id } = useParams();
   const [gamestate, setGamestate] = useState(null);
   const [isLoading, setIsLoading] = useState(true); 
+  const [timedOut, setTimedOut] = useState(false); 
 
   //Fetch game data
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
+        const timeoutId = setTimeout(() => {
+          //alert("Request timed out");
+          //window.location.href = "/";
+          setTimedOut(true);
+        }, 5000);
         const result = await fetch_state(game_id);
         setGamestate(result);
         console.log(result);
@@ -29,6 +35,7 @@ const Game = () => {
     fetchData();
   }, [game_id]);
 
+  
 //Set player cookie to random String.
   useEffect(() => {
     const existingCookie = Cookies.get("playerID");
@@ -70,8 +77,25 @@ const has_joined = () =>
     );
 }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+//Fancy schmancy loading
+const [loadingDots, setLoadingDots] = useState(1);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setLoadingDots((prevDots) => (prevDots % 3) + 1);
+    }, 500);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const loadingText = "Loading" + ".".repeat(loadingDots);
+  
+  if (isLoading && !timedOut) {
+    return <div>{loadingText}</div>;
+  }
+
+  if(timedOut && isLoading){
+    return <div><p>The game you're looking for does not exist.</p> <a href="/">Return.</a></div>;
   }
 
   return (
