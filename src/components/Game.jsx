@@ -40,7 +40,7 @@ useEffect(() => {
   fetchData();
 
   // Fetch at intervals
-  const intervalId = setInterval(fetchData, 3000);
+  const intervalId = setInterval(fetchData, 500);
 
   return () => {
     clearInterval(intervalId); // Cleanup the interval when the component unmounts
