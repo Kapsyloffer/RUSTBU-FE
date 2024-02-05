@@ -1,11 +1,13 @@
 import ws from "./websocket_connection";
+import {set_p} from "./p_made";
+import { set_state, get_state } from "../Global_Values/global_board";
+
 
 var action_p = null;
 var action_a = null;
 
 function make_moves(url, h, b, x1, x2, y1, y2, aggr)
 {
-
     if (aggr === false){
         action_p = {
         home_colour: h,
@@ -16,6 +18,7 @@ function make_moves(url, h, b, x1, x2, y1, y2, aggr)
         y2: y2,
         aggr: aggr,
         }
+        set_p(true);
     }else{
         action_a = {
         home_colour: h,
@@ -27,8 +30,6 @@ function make_moves(url, h, b, x1, x2, y1, y2, aggr)
         aggr: aggr,
         }
     }
-    
-    console.log("AGGR is now: ", !aggr, "\n");
 
     if (action_p !== null && action_a !== null){
     const packet = {
@@ -40,7 +41,7 @@ function make_moves(url, h, b, x1, x2, y1, y2, aggr)
     ws.send(JSON.stringify(packet));
     action_p = null;
     action_a = null;
+    set_p(false);
     }
 } 
-
-export default make_moves;
+export {make_moves, action_p};

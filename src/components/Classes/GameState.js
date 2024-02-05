@@ -14,6 +14,16 @@ class GameState{
         }
     }
 
+    get_player(v){
+        if (v == "b"){
+            return this.player_b;
+        }
+        if (v == "w"){
+            return this.player_w;
+        }
+        return null;
+    }
+
     get_turn(){
         return this.turn;
     }

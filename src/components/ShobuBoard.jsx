@@ -2,24 +2,27 @@ import React, { useState, useEffect, useRef } from 'react';
 import fetch_moves from "./Calls/fetch_moves";
 import white from "./../img/white_tmp.png";
 import black from "./../img/black_tmp.png";
-import make_moves from './Calls/make_moves';
-let aggr = false;
+import {make_moves, action_p} from './Calls/make_moves';
+import { get_p } from "./Calls/p_made";
+import { set_state, get_state } from './Global_Values/global_board';
+
 //Previously selected tile, used for movement.
 let prev_row = null;
 let prev_col = null;
+let aggr = false;
 
-const ShobuBoard = ({ color, home, url, state}) => {
+const ShobuBoard = ({ color, home, url}) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
   const boardRef = useRef(null);
-  //console.log(home, color);
 
   const handleClick = async (row, col) => {
     const clickedTile = `${home}-${color}-${row}-${col}`;
 
+    aggr = get_p(); //Holy fuck this is so stupid.
+
     if (highlightedTile && highlightedTile.includes(clickedTile)) {
 
       make_moves(url, home, color, prev_row, row, prev_col, col, aggr);
-      aggr = !aggr;
       console.log(aggr);
       setHighlightedTile(null);
     } else {
@@ -67,7 +70,7 @@ const ShobuBoard = ({ color, home, url, state}) => {
 
   const renderShobuBoard = () => {
     const board = [];
-    const boardstate = state.get_board(home, color).state;
+    const boardstate = get_state().get_board(home, color).state;
     for (let row = 0; row < 4; row++) 
     {
       for (let col = 0; col < 4; col++) 

@@ -5,10 +5,10 @@ import { useParams } from "react-router-dom";
 import fetch_state from "./Calls/fetch_state";
 import Cookies from "js-cookie";
 import join_game from "./Calls/join_game";
+import { set_state, get_state } from './Global_Values/global_board';
 
 const Game = () => {
   const { game_id } = useParams();
-  const [gamestate, setGamestate] = useState(null);
   const [isLoading, setIsLoading] = useState(true); 
   const [timedOut, setTimedOut] = useState(false); 
 
@@ -17,14 +17,13 @@ const Game = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const timeoutId = setTimeout(() => {
-          //alert("Request timed out");
-          //window.location.href = "/";
+
+        setTimeout(() => {
           setTimedOut(true);
         }, 5000);
-        const result = await fetch_state(game_id);
-        setGamestate(result);
-        console.log(result);
+
+        set_state(await fetch_state(game_id));
+        console.log(get_state());
       } catch (error) {
         console.log("Error fetching game state:", error);
       } finally {
@@ -71,9 +70,9 @@ const join = async() => {
 const has_joined = () =>
 {
   return (
-    (Cookies.get("playerID") === gamestate.player_b || 
-    Cookies.get("playerID") === gamestate.player_w) || 
-    (gamestate.player_b !== "None" && gamestate.player_w !== "None")
+    (Cookies.get("playerID") === get_state().get_player("b") || 
+    Cookies.get("playerID") === get_state().get_player("w")) || 
+    (get_state().get_player("b") !== "None" && get_state().get_player("w") !== "None")
     );
 }
 
@@ -101,17 +100,17 @@ const [loadingDots, setLoadingDots] = useState(1);
   return (
     <div className="infotxt">
       <span>You are: {Cookies.get("playerID")}</span><br/>
-      <span>PlayerB: {gamestate.player_b}</span><br/>
-      <span>PlayerW: {gamestate.player_w}</span><br/>
-      <span>Turn:    {gamestate.turn}</span><br/>
+      <span>PlayerB: {get_state().get_player("b")}</span><br/>
+      <span>PlayerW: {get_state().get_player("w")}</span><br/>
+      <span>Turn:    {get_state().get_turn()}</span><br/>
       {!has_joined() ? (<button onClick={join}>Join game</button>) : null}
       <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
       <span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>
   
       <div className={`bruh ${white ? "white" : ""}`}>
         <div className="SHOBU-container">
-          <ShobuBoard color="Black" home="White" url={game_id} state={gamestate}/>
-          <ShobuBoard color="White" home="White" url={game_id} state={gamestate}/>
+          <ShobuBoard color="Black" home="White" url={game_id}/>
+          <ShobuBoard color="White" home="White" url={game_id}/>
         </div>
   
         <img src={ropeImage} alt="Rope" />
@@ -119,13 +118,13 @@ const [loadingDots, setLoadingDots] = useState(1);
         <div className="SHOBU-container">
           {!flipped ? (
             <>
-              <ShobuBoard color="Black" home="Black" url={game_id} state={gamestate} />
-              <ShobuBoard color="White" home="Black" url={game_id} state={gamestate} />
+              <ShobuBoard color="Black" home="Black" url={game_id}/>
+              <ShobuBoard color="White" home="Black" url={game_id}/>
             </>
           ) : (
             <>
-              <ShobuBoard color="White" home="Black" url={game_id} state={gamestate} />
-              <ShobuBoard color="Black" home="Black" url={game_id} state={gamestate} />
+              <ShobuBoard color="White" home="Black" url={game_id}/>
+              <ShobuBoard color="Black" home="Black" url={game_id}/>
             </>
           )}
         </div>
