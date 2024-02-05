@@ -12,8 +12,8 @@ function parse_game(input)
         throw new Error('Invalid input format');
     }
 
-    const player_b = gameMatch[1];
-    const player_w = gameMatch[2];
+    const player_b = gameMatch[1].replace(/^"|"$/g, '');;
+    const player_w = gameMatch[2].replace(/^"|"$/g, '');;
     const boardMatches = gameMatch[3].matchAll(boardRegex);
     const boards = [];
 

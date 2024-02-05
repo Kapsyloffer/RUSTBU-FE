@@ -23,7 +23,6 @@ const Game = () => {
         console.log("Error fetching game state:", error);
       } finally {
         setIsLoading(false); 
-        await join_game(game_id, Cookies.get("playerID"));
       }
     };
 
@@ -58,6 +57,19 @@ const toggleWhite  = () => {
   Cookies.set("white", newWhite, { expires: 7 }); // Update the cookie value
 };
 
+const join = async() => {
+  await join_game(game_id, Cookies.get("playerID"));
+}
+
+const has_joined = () =>
+{
+  return (
+    (Cookies.get("playerID") === gamestate.player_b || 
+    Cookies.get("playerID") === gamestate.player_w) || 
+    (gamestate.player_b !== "None" && gamestate.player_w !== "None")
+    );
+}
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -68,6 +80,7 @@ const toggleWhite  = () => {
       <span>PlayerB: {gamestate.player_b}</span><br/>
       <span>PlayerW: {gamestate.player_w}</span><br/>
       <span>Turn:    {gamestate.turn}</span><br/>
+      {!has_joined() ? (<button onClick={join}>Join game</button>) : null}
       <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
       <span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>
   

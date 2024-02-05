@@ -17,7 +17,7 @@ async function join_game(url, id) {
         player_id: id,
       };
 
-      ws.send(JSON.stringify(packet));
+      resolve(ws.send(JSON.stringify(packet)));
 
       // Handle errors or timeouts
       ws.onerror = (error) => {
