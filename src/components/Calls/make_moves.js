@@ -1,12 +1,13 @@
 import ws from "./websocket_connection";
 import {set_p} from "./p_made";
 import { set_state, get_state } from "../Global_Values/global_board";
+import fetch_state from "./fetch_state";
 
 
 var action_p = null;
 var action_a = null;
 
-function make_moves(url, h, b, x1, x2, y1, y2, aggr)
+async function make_moves(url, h, b, x1, x2, y1, y2, aggr)
 {
     if (aggr === false){
         action_p = {
@@ -42,6 +43,7 @@ function make_moves(url, h, b, x1, x2, y1, y2, aggr)
     action_p = null;
     action_a = null;
     set_p(false);
+    set_state(await fetch_state(url));
     }
 } 
 export {make_moves, action_p};
