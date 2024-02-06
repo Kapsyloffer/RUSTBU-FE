@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import fetch_moves from "./Calls/fetch_moves";
 import white from "./../img/white_ferris.png";
 import black from "./../img/black_ferris.png";
-import {make_moves, action_p} from './Calls/make_moves';
+import {make_moves} from './Calls/make_moves';
 import { get_p } from "./Calls/p_made";
-import { set_state, get_state } from './Global_Values/global_board';
+import { get_state } from './Global_Values/global_board';
 
 //Previously selected tile, used for movement.
 let prev_row = null;
@@ -80,8 +80,6 @@ const ShobuBoard = ({ color, home, url}) => {
         const tileKey = `${home}-${color}-${row}-${col}`;
         const isHighlighted = highlightedTile && highlightedTile.includes(tileKey);
 
-        //Temp rock render solution
-        //TODO: Fetch positions and render.
         let rock = null;
         switch (boardstate[row][col])
         {
@@ -97,7 +95,8 @@ const ShobuBoard = ({ color, home, url}) => {
         }
 
         board.push(
-          <div key={tileKey} className={`square ${squareColor} ${isHighlighted ? 'highlighted' : ''}`} onClick={() => handleClick(row, col)}>
+          <div key={tileKey} className={`square ${squareColor} ${aggr ? (isHighlighted ? 'angry_highlighted' : '') : (isHighlighted ? 'highlighted' : '')}`} onClick={() => handleClick(row, col)}>
+
             
             {rock}
           </div>

@@ -1,21 +1,23 @@
 .dark {
-    background-color: #3f3986;
+    background-color: #654c3f;
 }
 
 .dark:hover {
-    background-color: #4a42a6;
+    background-color: #836c60;
 }
 
+
+
 .light {
-    background-color: #9176c4;
+    background-color:  #c8b496;
 }
 
 .light:hover {
-    background-color: #a586dd;
+    background-color:  #dfcfb7;
 }
 
 body {
-    background-color: #c8b496;
+    background-color: #6e9393;
 }
 
 .square.highlighted {
@@ -24,4 +26,12 @@ body {
 
 .square.highlighted:hover {
     background-color: #77db77; 
+}
+
+.square.angry_highlighted {
+    background-color: rgb(255, 177, 170); 
+}
+
+.square.angry_highlighted:hover {
+    background-color: #db7777; 
 }

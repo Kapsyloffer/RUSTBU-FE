@@ -31,7 +31,7 @@ body {
 
 .infotxt
 {
-  font-size: 9px;;
+  font-size: 9px;
 }
 
 .bruh
@@ -52,7 +52,6 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  gap: 1px; 
   margin: 0 auto; 
 }
 
@@ -63,7 +62,6 @@ body {
   align-items: center;
   justify-content: center;
   border: #000 1px solid;
-  border-radius: 5%;
 }
 
 .square img {

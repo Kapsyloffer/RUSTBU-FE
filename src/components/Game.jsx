@@ -13,45 +13,47 @@ const Game = () => {
   const [timedOut, setTimedOut] = useState(false); 
 
   // Fetch game data
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-
-      setTimeout(() => {
-        setTimedOut(true);
-      }, 5000);
-
-      let fetched = await fetch_state(game_id);
-
-      if (get_state().get_turn() === fetched.get_turn()) {
-        return;
-      } else {
-        set_state(fetched);
-        console.log(get_state());
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setTimeout(() => {
+          setTimedOut(true);
+        }, 5000);
+  
+        let fetched = await fetch_state(game_id);
+  
+        if (get_state().get_turn() === fetched.get_turn()) {
+          return;
+        } else {
+          set_state(fetched);
+          //console.log(get_state());
+        }
+      } catch (error) {
+        console.log("Error fetching game state:", error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log("Error fetching game state:", error);
-    } finally {
-      setIsLoading(false);
+    };
+  
+    // Initial fetch
+    fetchData();
+  
+    // Fetch at intervals if the current player is not the active player
+    if (get_state().who_am_i(Cookies.get("playerID") === get_state().get_turn())) {
+      const intervalId = setInterval(fetchData, 500);
+  
+      return () => {
+        clearInterval(intervalId); // Cleanup the interval when the component unmounts
+      };
     }
-  };
-
-  // Initial fetch
-  fetchData();
-
-  // Fetch at intervals
-  const intervalId = setInterval(fetchData, 500);
-
-  return () => {
-    clearInterval(intervalId); // Cleanup the interval when the component unmounts
-  };
-}, [game_id]);
+  }, [game_id]);
+  
 
   
 //Set player cookie to random String.
   useEffect(() => {
     const existingCookie = Cookies.get("playerID");
-    console.log(existingCookie);
+    //console.log(existingCookie);
     if (!existingCookie) {
       const randomString = Math.random().toString(36).substring(2, 20);
       Cookies.set("playerID", randomString, { expires: 7 });
@@ -77,7 +79,8 @@ const toggleWhite  = () => {
 };
 
 const join = async() => {
-  await join_game(game_id, Cookies.get("playerID"));
+  join_game(game_id, Cookies.get("playerID"));
+  window.location.reload();
 }
 
 const has_joined = () =>

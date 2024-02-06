@@ -1,6 +1,6 @@
 import ws from "./websocket_connection";
 
-async function join_game(url, id) {
+function join_game(url, id) {
   return new Promise((resolve, reject) => {
     if (ws.readyState === WebSocket.OPEN) {
       sendFetchRequest();

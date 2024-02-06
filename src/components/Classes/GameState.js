@@ -15,10 +15,10 @@ class GameState{
     }
 
     get_player(v){
-        if (v == "b"){
+        if (v === "b"){
             return this.player_b;
         }
-        if (v == "w"){
+        if (v === "w"){
             return this.player_w;
         }
         return null;
@@ -26,6 +26,17 @@ class GameState{
 
     get_turn(){
         return this.turn;
+    }
+
+    who_am_i(cookie){
+        switch(cookie){
+            case this.player_b:
+                return "Black";
+            case this.player_w:
+                return "White";
+            default:
+                return "Spectator";
+        }
     }
 }
 

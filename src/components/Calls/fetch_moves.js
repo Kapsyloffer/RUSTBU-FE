@@ -19,18 +19,14 @@ async function fetch_moves(url, h, b, x, y, aggr) {
       const msg = JSON.parse(event.data);
       if (msg.type === "FetchedMoves") {
         let parsed = parse_moves(msg.moves);
-        console.log(parsed);
+
         if (!aggr) {
           resolve(parsed);
-        } else {
-          let [dx, dy, dc] = get_size();
-          if(dc !== packet.c){
-            resolve([[(packet.x - dx), (packet.y - dy)]]); //This is stupid
-          }
-          else{
-            resolve([]);
-          }
+        } else if (aggr) {
+          resolve(check_aggr_move(packet));
         }
+        resolve([]);
+        
       };
     };
 
@@ -55,6 +51,15 @@ function parse_moves(msg)
     console.error('Error: Tuples not found in the string');
     return [];
   }
+}
+
+function check_aggr_move(packet){
+  let [dx, dy, dc] = get_size();
+
+  if(dc !== packet.c){
+    return [[(packet.x - dx), (packet.y - dy)]]; //This is stupid
+  }
+  return [];
 }
   
 export default fetch_moves;
