@@ -11,7 +11,6 @@ const Game = () => {
   const { game_id } = useParams();
   const [isLoading, setIsLoading] = useState(true); 
   const [timedOut, setTimedOut] = useState(false); 
-
   // Fetch game data
   useEffect(() => {
     const fetchData = async () => {
@@ -61,11 +60,31 @@ const Game = () => {
   }, []);
 
 
-  const player_id = Cookies.get("playerID");
+
+
+const player_id = Cookies.get("playerID");
+  
+useEffect(() => {
+  const isWhite = get_state().get_player("w") === player_id;
+  setWhite(isWhite);
+  Cookies.set("white", isWhite, { expires: 7 });
+}, [player_id]);
 
 //Flipped board display check
 const [flipped, setFlipped] = useState(Cookies.get("flipped") === "true");
 const [white, setWhite] = useState(Cookies.get("white") === "true");
+
+  useEffect(() => {
+    const player_id = Cookies.get("playerID");
+    const isWhite = get_state().get_player("w") === player_id;
+    
+    setWhite(isWhite);
+    
+    // Check if the player's ID is the same as player_w and update the white cookie
+    if (isWhite) {
+      Cookies.set("white", isWhite, { expires: 7 });
+    }
+  }, []);
 
 const toggleFlip = () => {
   const newFlipped = !flipped;
@@ -84,14 +103,18 @@ const join = async() => {
   window.location.reload();
 }
 
+const is_full = () =>
+{
+  return (get_state().get_player("b") !== "None" && get_state().get_player("w") !== "None")
+}
+
 const has_joined = () =>
 {
   return (
     (Cookies.get("playerID") === get_state().get_player("b") || 
-    Cookies.get("playerID") === get_state().get_player("w")) || 
-    (get_state().get_player("b") !== "None" && get_state().get_player("w") !== "None")
-    );
+    Cookies.get("playerID") === get_state().get_player("w")));
 }
+
 
 //Fancy schmancy loading
 const [loadingDots, setLoadingDots] = useState(1);
@@ -120,9 +143,9 @@ const [loadingDots, setLoadingDots] = useState(1);
       <span>PlayerB: {get_state().get_player("b")}</span><br/>
       <span>PlayerW: {get_state().get_player("w")}</span><br/>
       <span>Turn:    {get_state().get_turn()}</span><br/>
-      {!has_joined() ? (<button onClick={join}>Join game</button>) : null}
+      {!has_joined() && !is_full() ? (<button onClick={join}>Join game</button>) : null}
       <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
-      <span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>
+      {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
   
       <div className={`bruh ${white ? "white" : ""}`}>
         <div className="SHOBU-container">
