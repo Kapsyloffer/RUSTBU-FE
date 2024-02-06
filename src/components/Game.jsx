@@ -49,75 +49,56 @@ const Game = () => {
   
 
   
-//Set player cookie to random String.
+  //Set player cookie to random String.
   useEffect(() => {
     const existingCookie = Cookies.get("playerID");
-    //console.log(existingCookie);
+    //If there is no cookie, bake a cookie.
     if (!existingCookie) {
       const randomString = Math.random().toString(36).substring(2, 20);
       Cookies.set("playerID", randomString, { expires: 7 });
     }
   }, []);
 
+  const player_id = Cookies.get("playerID");
 
+  //Flipped board display check
+  const [flipped, setFlipped] = useState(Cookies.get("flipped") === "true");
+  const [white, setWhite] = useState(Cookies.get("white") === "false");
+    
+  const toggleFlip = () => {
+    const newFlipped = !flipped;
+    setFlipped(newFlipped);
+    Cookies.set("flipped", newFlipped, { expires: 7 }); // Update the cookie value
+  };
 
+  const toggleWhite  = () => {
+    const newWhite = !white;
+    setWhite(newWhite);
+    Cookies.set("white", newWhite, { expires: 7 }); // Update the cookie value
+  };
 
-const player_id = Cookies.get("playerID");
-  
-useEffect(() => {
-  const isWhite = get_state().get_player("w") === player_id;
-  setWhite(isWhite);
-  Cookies.set("white", isWhite, { expires: 7 });
-}, [player_id]);
+  const join = async() => {
+    join_game(game_id, Cookies.get("playerID"));
+    window.location.reload();
+  }
 
-//Flipped board display check
-const [flipped, setFlipped] = useState(Cookies.get("flipped") === "true");
-const [white, setWhite] = useState(Cookies.get("white") === "true");
+  const is_full = () =>
+  {
+    return (get_state().get_player("b") !== "None" && get_state().get_player("w") !== "None")
+  }
+
+  const has_joined = () =>
+  {
+    return ((Cookies.get("playerID") === get_state().get_player("b") 
+    || Cookies.get("playerID") === get_state().get_player("w")));
+  }
 
   useEffect(() => {
-    const player_id = Cookies.get("playerID");
-    const isWhite = get_state().get_player("w") === player_id;
-    
-    setWhite(isWhite);
-    
-    // Check if the player's ID is the same as player_w and update the white cookie
-    if (isWhite) {
-      Cookies.set("white", isWhite, { expires: 7 });
-    }
-  }, []);
+    setWhite(Cookies.get("playerID") === get_state().get_player("w"));
+  })
 
-const toggleFlip = () => {
-  const newFlipped = !flipped;
-  setFlipped(newFlipped);
-  Cookies.set("flipped", newFlipped, { expires: 7 }); // Update the cookie value
-};
-
-const toggleWhite  = () => {
-  const newWhite = !white;
-  setWhite(newWhite);
-  Cookies.set("white", newWhite, { expires: 7 }); // Update the cookie value
-};
-
-const join = async() => {
-  join_game(game_id, Cookies.get("playerID"));
-  window.location.reload();
-}
-
-const is_full = () =>
-{
-  return (get_state().get_player("b") !== "None" && get_state().get_player("w") !== "None")
-}
-
-const has_joined = () =>
-{
-  return (
-    (Cookies.get("playerID") === get_state().get_player("b") || 
-    Cookies.get("playerID") === get_state().get_player("w")));
-}
-
-
-//Fancy schmancy loading
-const [loadingDots, setLoadingDots] = useState(1);
+  //Fancy schmancy loading
+  const [loadingDots, setLoadingDots] = useState(1);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -136,6 +117,7 @@ const [loadingDots, setLoadingDots] = useState(1);
   if(timedOut && isLoading){
     return <div><p>The game you're looking for does not exist.</p> <a href="/">Return.</a></div>;
   }
+  
 
   return (
     <div className="infotxt">
