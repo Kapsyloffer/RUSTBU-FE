@@ -3,7 +3,7 @@ import fetch_moves from "./Calls/fetch_moves";
 import white from "./../img/white_ferris.png";
 import black from "./../img/black_ferris.png";
 import {make_moves} from './Calls/make_moves';
-import { get_p } from "./Calls/p_made";
+import { get_p } from "./Classes/p_made";
 import { get_state } from './Global_Values/global_board';
 
 //Previously selected tile, used for movement.

@@ -1,5 +1,5 @@
 import ws from "./websocket_connection";
-import {set_p} from "./p_made";
+import {set_p, set_coords} from "../Classes/p_made";
 import { set_state } from "../Global_Values/global_board";
 import fetch_state from "./fetch_state";
 import {get_size, set_size} from "./../Global_Values/move_size";
@@ -21,6 +21,7 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr)
         aggr: aggr,
         }
         set_p(true);
+        set_coords(h, b, x1, x2, y1, y2); //WHY ARE YOU GREEN
         set_size((x1 - x2), (y1 - y2), action_p.board_colour);
         console.log(get_size());
     }else{

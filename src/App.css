@@ -80,11 +80,20 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20%;
   height: 100vh; /* Optional: Set a height to vertically center as well */
 }
 
 .Index button{
   width: 20%;
   height: 5%;
+}
+
+.git_logo{
+  height: 50px;
+  width: 50px;
+}
+
+.git_logo:hover{
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  cursor: pointer;
 }
