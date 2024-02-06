@@ -121,9 +121,9 @@ const Game = () => {
 
   return (
     <div className="infotxt">
-      <span>You are: {Cookies.get("playerID")}</span><br/>
-      <span>PlayerB: {get_state().get_player("b")}</span><br/>
-      <span>PlayerW: {get_state().get_player("w")}</span><br/>
+      {/*<span>You are: {Cookies.get("playerID")}</span><br/>*/}
+      <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
+      <span>〇 <b>{get_state().get_player("w")}</b></span><br/>
       <span>Turn:    {get_state().get_turn()}</span><br/>
       {!has_joined() && !is_full() ? (<button onClick={join}>Join game</button>) : null}
       <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
