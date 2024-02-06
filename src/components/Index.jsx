@@ -8,7 +8,7 @@ const not_yet = () =>{
   
 const Index = () => {
     return ( 
-    <div class="Index">
+    <div className="Index">
       <img src={rustbu} alt="logo"></img>
       <br/>
     <button onClick={new_game}>New Game</button>
@@ -16,7 +16,7 @@ const Index = () => {
     <br/>
     <br/>
     <br/>
-    <a href="https://github.com/Kapsyloffer/RUSTBU" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" class="git_logo"/></a>
+    <a href="https://github.com/Kapsyloffer/RUSTBU" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" className="git_logo" alt="github logo"/></a>
   </div>
     );
   };
