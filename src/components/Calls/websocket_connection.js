@@ -1,7 +1,7 @@
 import {set_state} from "./../Global_Values/global_board";
 import parse_game from "./parse_game";
 
-const ws = new WebSocket("ws://130.240.153.241:4444/ws");
+const ws = new WebSocket("ws://83.209.179.124:4444/ws");
 
 
 ws.onopen = () => {

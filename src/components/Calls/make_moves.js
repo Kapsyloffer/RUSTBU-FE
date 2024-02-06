@@ -21,10 +21,13 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr, player_id)
         aggr: aggr,
         player: player_id,
         }
-        set_p(true);
-        set_coords(h, b, x1, x2, y1, y2); //WHY ARE YOU GREEN
-        set_size((x1 - x2), (y1 - y2), action_p.board_colour);
-        console.log(get_size());
+        if(!(x1 === x2 && y1 === y2))
+        {
+            set_p(true);
+            set_coords(h, b, x1, x2, y1, y2); //WHY ARE YOU GREEN
+            set_size((x1 - x2), (y1 - y2), action_p.board_colour);
+            console.log(get_size());  
+        }
     }else{
         action_a = {
         home_colour: h,

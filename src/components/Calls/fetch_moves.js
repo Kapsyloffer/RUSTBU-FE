@@ -49,7 +49,7 @@ function parse_moves(msg)
 
     return moves;
   } else {
-    console.error('Error: Tuples not found in the string');
+    //console.error('Error: Tuples not found in the string');
     return [];
   }
 }

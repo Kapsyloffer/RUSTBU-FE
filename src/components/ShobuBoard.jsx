@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import fetch_moves from "./Calls/fetch_moves";
-import white from "./../img/white_ferris.png";
-import black from "./../img/black_ferris.png";
+import white from "./../img/white_tmp.png";
+import black from "./../img/black_tmp.png";
 import {make_moves} from './Calls/make_moves';
 import { get_p } from "./Classes/p_made";
 import { get_state } from './Global_Values/global_board';
@@ -21,10 +21,9 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
     aggr = get_p(); //Holy fuck this is so stupid.
 
     if (highlightedTile && highlightedTile.includes(clickedTile)) {
-
-      make_moves(url, home, color, prev_row, row, prev_col, col, aggr, player_id);
-      console.log(aggr);
-      setHighlightedTile(null);
+        make_moves(url, home, color, prev_row, row, prev_col, col, aggr, player_id);
+        console.log(aggr);
+        setHighlightedTile(null);
     } else {
       try {
         
@@ -90,14 +89,14 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
             rock = <img src={black} alt=""/>;
             break;
           default:
-            break;
 
+            break;
         }
 
         board.push(
-          <div key={tileKey} className={`square ${squareColor} ${aggr ? (isHighlighted ? 'angry_highlighted' : '') : (isHighlighted ? 'highlighted' : '')}`} onClick={() => handleClick(row, col)}>
-
-            
+          <div key={tileKey} 
+          className={`square ${squareColor} ${aggr ? (isHighlighted ? 'angry_highlighted' : '') : (isHighlighted ? 'highlighted' : '')}`} 
+          onClick={() => handleClick(row, col)}>   
             {rock}
           </div>
         );
