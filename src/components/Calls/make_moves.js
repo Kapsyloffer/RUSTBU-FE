@@ -8,7 +8,7 @@ import {get_size, set_size} from "./../Global_Values/move_size";
 var action_p = null;
 var action_a = null;
 
-async function make_moves(url, h, b, x1, x2, y1, y2, aggr)
+async function make_moves(url, h, b, x1, x2, y1, y2, aggr, player_id)
 {
     if (aggr === false){
         action_p = {
@@ -19,6 +19,7 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr)
         x2: x2,
         y2: y2,
         aggr: aggr,
+        player: player_id,
         }
         set_p(true);
         set_coords(h, b, x1, x2, y1, y2); //WHY ARE YOU GREEN
@@ -33,6 +34,7 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr)
         x2: x2,
         y2: y2,
         aggr: aggr,
+        player: player_id,
         }
     }
 

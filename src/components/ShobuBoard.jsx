@@ -11,7 +11,7 @@ let prev_row = null;
 let prev_col = null;
 let aggr = false;
 
-const ShobuBoard = ({ color, home, url}) => {
+const ShobuBoard = ({ color, home, url, player_id}) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
   const boardRef = useRef(null);
 
@@ -22,7 +22,7 @@ const ShobuBoard = ({ color, home, url}) => {
 
     if (highlightedTile && highlightedTile.includes(clickedTile)) {
 
-      make_moves(url, home, color, prev_row, row, prev_col, col, aggr);
+      make_moves(url, home, color, prev_row, row, prev_col, col, aggr, player_id);
       console.log(aggr);
       setHighlightedTile(null);
     } else {
@@ -36,7 +36,7 @@ const ShobuBoard = ({ color, home, url}) => {
         prev_col = col;
 
         //Get possible movement positions
-        let moves = await fetch_moves(url, home, color, row, col, aggr);
+        let moves = await fetch_moves(url, home, color, row, col, aggr, player_id);
 
         //Highlight all possible movement tiles
         moves.map(tuple => {

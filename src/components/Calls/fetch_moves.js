@@ -1,7 +1,7 @@
 import ws from "./websocket_connection";
 import { get_size } from "./../Global_Values/move_size";
 
-async function fetch_moves(url, h, b, x, y, aggr) {
+async function fetch_moves(url, h, b, x, y, aggr, player_id) {
   return new Promise((resolve, reject) => {
     const packet = {
       type: "FetchMoves",
@@ -11,6 +11,7 @@ async function fetch_moves(url, h, b, x, y, aggr) {
       x: x,
       y: y,
       aggr: aggr,
+      player: player_id,
     };
 
     ws.send(JSON.stringify(packet));

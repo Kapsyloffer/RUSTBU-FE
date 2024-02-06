@@ -61,6 +61,7 @@ const Game = () => {
   }, []);
 
 
+  const player_id = Cookies.get("playerID");
 
 //Flipped board display check
 const [flipped, setFlipped] = useState(Cookies.get("flipped") === "true");
@@ -125,8 +126,8 @@ const [loadingDots, setLoadingDots] = useState(1);
   
       <div className={`bruh ${white ? "white" : ""}`}>
         <div className="SHOBU-container">
-          <ShobuBoard color="Black" home="White" url={game_id}/>
-          <ShobuBoard color="White" home="White" url={game_id}/>
+          <ShobuBoard color="Black" home="White" url={game_id} player_id={player_id}/>
+          <ShobuBoard color="White" home="White" url={game_id} player_id={player_id}/>
         </div>
   
         <img src={ropeImage} alt="Rope" />
@@ -134,13 +135,13 @@ const [loadingDots, setLoadingDots] = useState(1);
         <div className="SHOBU-container">
           {!flipped ? (
             <>
-              <ShobuBoard color="Black" home="Black" url={game_id}/>
-              <ShobuBoard color="White" home="Black" url={game_id}/>
+              <ShobuBoard color="Black" home="Black" url={game_id} player_id={player_id}/>
+              <ShobuBoard color="White" home="Black" url={game_id} player_id={player_id}/>
             </>
           ) : (
             <>
-              <ShobuBoard color="White" home="Black" url={game_id}/>
-              <ShobuBoard color="Black" home="Black" url={game_id}/>
+              <ShobuBoard color="White" home="Black" url={game_id} player_id={player_id}/>
+              <ShobuBoard color="Black" home="Black" url={game_id} player_id={player_id}/>
             </>
           )}
         </div>
