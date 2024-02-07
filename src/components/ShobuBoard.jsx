@@ -3,7 +3,7 @@ import fetch_moves from "./Calls/fetch_moves";
 import white from "./../img/white_ferris.png";
 import black from "./../img/black_ferris.png";
 import {make_moves} from './Calls/make_moves';
-import { get_p } from "./Classes/p_made";
+import { get_p, get_coords } from "./Classes/p_made";
 import { get_state } from './Global_Values/global_board';
 
 //Previously selected tile, used for movement.
@@ -13,6 +13,7 @@ let aggr = false;
 
 const ShobuBoard = ({ color, home, url, player_id}) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
+  const [previousMoveTile, setPreviousMoveTile] = useState(null);
   const boardRef = useRef(null);
 
   const handleClick = async (row, col) => {
@@ -70,6 +71,9 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
   const renderShobuBoard = () => {
     const board = [];
     const boardstate = get_state().get_board(home, color).state;
+    const [[h, c], [x1, y1], [y2, x2]] = get_coords();
+    const turn = get_state().get_turn();
+
     for (let row = 0; row < 4; row++) 
     {
       for (let col = 0; col < 4; col++) 
@@ -78,6 +82,9 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
         const squareColor = color === 'Black' ? 'dark' : 'light';
         const tileKey = `${home}-${color}-${row}-${col}`;
         const isHighlighted = highlightedTile && highlightedTile.includes(tileKey);
+        
+        const tileKey_prev_1 = `${h}-${c}-${x1}-${y1}`;
+        const tileKey_prev_2 = `${h}-${c}-${y2}-${x2}`; //WHY THE FUCK IS IT FLIPPED
 
         let rock = null;
         switch (boardstate[row][col])
@@ -91,6 +98,25 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
           default:
 
             break;
+        }
+
+        //This is really stupid and crummy but it shows the realtime passive move for the active player.
+        //TODO: Write better I guess.
+        if (tileKey === tileKey_prev_1 || tileKey === tileKey_prev_2) {
+          if (boardstate[row][col] === boardstate[x1][y1])
+          {
+            if (turn === "Black") {
+              rock = <img src={black}  className="ghost"  alt=""/>;
+            } else if (turn === "White") {
+              rock = <img src={white}  className="ghost"  alt=""/>;
+            }
+          } else if (boardstate[row][col] === boardstate[y2][x2]) {
+            if (turn === "Black") {
+              rock = <img src={black}alt=""/>;
+            } else if (turn === "White") {
+              rock = <img src={white}alt=""/>;
+            }
+          }
         }
 
         board.push(

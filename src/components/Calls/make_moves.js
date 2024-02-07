@@ -24,7 +24,7 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr, player_id)
         if(!(x1 === x2 && y1 === y2))
         {
             set_p(true);
-            set_coords(h, b, x1, x2, y1, y2); //WHY ARE YOU GREEN
+            set_coords(h, b, x1, y1, x2, y2); 
             set_size((x1 - x2), (y1 - y2), action_p.board_colour);
             console.log(get_size());  
         }
@@ -52,6 +52,7 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr, player_id)
     action_p = null;
     action_a = null;
     set_p(false);
+    set_coords(null, null, null, null, null, null);
     set_state(await fetch_state(url));
     }
 } 
