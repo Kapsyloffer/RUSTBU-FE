@@ -25,7 +25,7 @@ const Game = () => {
           return;
         } else {
           set_state(fetched);
-          //console.log(get_state());
+          console.log(get_state());
         }
       } catch (error) {
         console.log("Error fetching game state:", error);
@@ -47,7 +47,9 @@ const Game = () => {
     }
   }, [game_id]);
   
-
+  const has_winner = () =>{
+    return (get_state().get_winner() !== "Empty");
+  }
   
   //Set player cookie to random String.
   useEffect(() => {
@@ -128,6 +130,7 @@ const Game = () => {
         <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
         <span>○ <b>{get_state().get_player("w")}</b></span><br/>
         <span>Turn:    {get_state().get_turn()}</span><br/>
+        <span> {has_winner() ? `Has Winner: ${get_state().get_winner()}` : ""}</span><br/>
         {!has_joined() && !is_full() ? (<button onClick={join}>Join game</button>) : null}
         <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
         {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}

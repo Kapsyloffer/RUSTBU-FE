@@ -4,7 +4,7 @@ import Board from "./../Classes/Board";
 function parse_game(input)
 {
     const boardRegex = /Board \{ color: (\w+), home: (\w+), state: \[\[([\w,\s]+)\], \[([\w,\s]+)\], \[([\w,\s]+)\], \[([\w,\s]+)\]\] \}/g;
-    const gameRegex = /Game \{ player_b: ("\w+"), player_w: ("\w+"), boards: \[([\s\S]+?)\], turn: (\w+) \}/;
+    const gameRegex = /Game \{ player_b: ("\w+"), player_w: ("\w+"), boards: \[([\s\S]+?)\], turn: (\w+), winner: (\w+) \}/;
 
     const gameMatch = input.match(gameRegex);
 
@@ -32,8 +32,9 @@ function parse_game(input)
     }
 
     const turn = gameMatch[4];
-
-    return new GameState(player_b, player_w, boards, turn);
+    const winner = gameMatch[5];
+    //console.log(winner);
+    return new GameState(player_b, player_w, boards, turn, winner);
 }
 
 export default parse_game;

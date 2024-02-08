@@ -1,9 +1,10 @@
 class GameState{
-    constructor(player_b, player_w, boards, turn) {
+    constructor(player_b, player_w, boards, turn, winner) {
         this.player_b = player_b;
         this.player_w = player_w;
         this.boards = boards;
         this.turn = turn;
+        this.winner = winner;
     }
 
     get_board(h, c){
@@ -26,6 +27,10 @@ class GameState{
 
     get_turn(){
         return this.turn;
+    }
+
+    get_winner(){
+        return this.winner;
     }
 
     who_am_i(cookie){
