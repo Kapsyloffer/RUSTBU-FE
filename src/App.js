@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css';
-import './boards.css';
-import Game from './components/Game';
+import "./App.css";
+import "./boards.css";
+import Game from "./components/Game";
 import Index from "./components/Index";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/game/:game_id" element={<Game />} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>
   );

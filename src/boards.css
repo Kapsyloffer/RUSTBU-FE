@@ -35,3 +35,15 @@ body {
 .square.angry_highlighted:hover {
     background-color: #db7777; 
 }
+
+.square.prev_passive{
+    background-image: url("img/passive_frame.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.square.prev_aggressive{
+    background-image: url("img/aggressive_frame.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
