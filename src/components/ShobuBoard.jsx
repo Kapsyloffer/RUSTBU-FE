@@ -9,25 +9,20 @@ import { get_state } from './Global_Values/global_board';
 //Previously selected tile, used for movement.
 let prev_row = null;
 let prev_col = null;
-let aggr = false;
 
 const ShobuBoard = ({ color, home, url, player_id}) => {
   const [highlightedTile, setHighlightedTile] = useState(null);
-  const [previousMoveTile, setPreviousMoveTile] = useState(null);
   const boardRef = useRef(null);
+  const aggr = get_p(); //Holy fuck this is so stupid.
 
   const handleClick = async (row, col) => {
     const clickedTile = `${home}-${color}-${row}-${col}`;
 
-    aggr = get_p(); //Holy fuck this is so stupid.
-
     if (highlightedTile && highlightedTile.includes(clickedTile)) {
         make_moves(url, home, color, prev_row, row, prev_col, col, aggr, player_id);
-        console.log(aggr);
         setHighlightedTile(null);
     } else {
       try {
-        
         let updatedHighlightedTile = [
           clickedTile
         ];
@@ -47,9 +42,9 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
 
         //Highlight them; TODO: Make better?
         setHighlightedTile(updatedHighlightedTile);
+
       } catch (error) {
         console.error("Error fetching moves:", error);
-        // Handle errors here
       }
     }
   };
@@ -70,59 +65,20 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
 
   const renderShobuBoard = () => {
     const board = [];
-    const boardstate = get_state().get_board(home, color).state;
-    const [[h, c], [x1, y1], [y2, x2]] = get_coords();
-    const turn = get_state().get_turn();
-
     for (let row = 0; row < 4; row++) 
     {
       for (let col = 0; col < 4; col++) 
       {
-        //TODO: Break out tiles into own separate component.
         const squareColor = color === 'Black' ? 'dark' : 'light';
         const tileKey = `${home}-${color}-${row}-${col}`;
+
         const isHighlighted = highlightedTile && highlightedTile.includes(tileKey);
-        
-        const tileKey_prev_1 = `${h}-${c}-${x1}-${y1}`;
-        const tileKey_prev_2 = `${h}-${c}-${y2}-${x2}`; //WHY THE FUCK IS IT FLIPPED
+        const hilightClass = `${isHighlighted ? (aggr ?  ('angry_highlighted') : ('highlighted')) : ("")}`;
 
-        let rock = null;
-        switch (boardstate[row][col])
-        {
-          case "White":
-            rock = <img src={white} alt=""/>;
-            break;
-          case "Black":
-            rock = <img src={black} alt=""/>;
-            break;
-          default:
-
-            break;
-        }
-
-        //This is really stupid and crummy but it shows the realtime passive move for the active player.
-        //TODO: Write better I guess.
-        if (tileKey === tileKey_prev_1 || tileKey === tileKey_prev_2) {
-          if (boardstate[row][col] === boardstate[x1][y1])
-          {
-            if (turn === "Black") {
-              rock = <img src={black}  className="ghost"  alt=""/>;
-            } else if (turn === "White") {
-              rock = <img src={white}  className="ghost"  alt=""/>;
-            }
-          } else if (boardstate[row][col] === boardstate[y2][x2]) {
-            if (turn === "Black") {
-              rock = <img src={black}alt=""/>;
-            } else if (turn === "White") {
-              rock = <img src={white}alt=""/>;
-            }
-          }
-        }
+        const rock = rock_handler(home, color, row, col);
 
         board.push(
-          <div key={tileKey} 
-          className={`square ${squareColor} ${aggr ? (isHighlighted ? 'angry_highlighted' : '') : (isHighlighted ? 'highlighted' : '')}`} 
-          onClick={() => handleClick(row, col)}>   
+          <div key={tileKey} className={`square ${squareColor} ${hilightClass} `} onClick={() => handleClick(row, col)}>   
             {rock}
           </div>
         );
@@ -133,5 +89,48 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
 
   return <div className="board" ref={boardRef}>{renderShobuBoard()}</div>;
 };
+
+function rock_handler(home, color, row, col){
+  const boardstate = get_state().get_board(home, color).state;
+  const [[h, c], [x1, y1], [x2, y2]] = get_coords();
+  const turn = get_state().get_turn();
+
+  const tileKey = `${home}-${color}-${row}-${col}`;
+  const tileKey_prev_1 = `${h}-${c}-${x1}-${y1}`;
+  const tileKey_prev_2 = `${h}-${c}-${x2}-${y2}`; 
+
+  let rock = null;
+  switch (boardstate[row][col])
+  {
+    case "White":
+      rock = <img src={white} alt=""/>;
+      break;
+    case "Black":
+      rock = <img src={black} alt=""/>;
+      break;
+    default:
+      rock = null;
+      break;
+  }
+
+  //Checks if a passive move has been made previously.
+  if (tileKey === tileKey_prev_1 || tileKey === tileKey_prev_2) {
+    if (boardstate[row][col] === boardstate[x1][y1]) { //Previous position
+      if (turn === "Black") {
+        rock = <img src={black}  className="ghost"  alt=""/>;
+      } else if (turn === "White") {
+        rock = <img src={white}  className="ghost"  alt=""/>;
+      }
+    } else if (boardstate[row][col] === boardstate[x2][y2]) { //Next position
+      if (turn === "Black") {
+        rock = <img src={black}alt=""/>;
+      } else if (turn === "White") {
+        rock = <img src={white}alt=""/>;
+      }
+    }
+  }
+
+  return rock;
+}
 
 export default ShobuBoard;

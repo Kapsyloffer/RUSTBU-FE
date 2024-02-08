@@ -123,15 +123,15 @@ const Game = () => {
   
 
   return (
-    <div className="infotxt">
-      {/*<span>You are: {Cookies.get("playerID")}</span><br/>*/}
-      <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
-      <span>○ <b>{get_state().get_player("w")}</b></span><br/>
-      <span>Turn:    {get_state().get_turn()}</span><br/>
-      {!has_joined() && !is_full() ? (<button onClick={join}>Join game</button>) : null}
-      <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
-      {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
-  
+    <div>
+      <div className="infotxt">
+        <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
+        <span>○ <b>{get_state().get_player("w")}</b></span><br/>
+        <span>Turn:    {get_state().get_turn()}</span><br/>
+        {!has_joined() && !is_full() ? (<button onClick={join}>Join game</button>) : null}
+        <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
+        {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
+      </div>
       <div className={`bruh ${white ? "white" : ""}`}>
         <div className="SHOBU-container">
           <ShobuBoard color="Black" home="White" url={game_id} player_id={player_id}/>

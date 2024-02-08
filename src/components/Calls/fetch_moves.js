@@ -20,10 +20,10 @@ async function fetch_moves(url, h, b, x, y, aggr, player_id) {
       const msg = JSON.parse(event.data);
       if (msg.type === "FetchedMoves") {
         let parsed = parse_moves(msg.moves);
-
+        //console.log(parsed);
         if (!aggr) {
           resolve(parsed);
-        } else if (aggr) {
+        } else if (aggr && parsed.length > 0) { //Prevents aggr move visuals everywhere.
           resolve(check_aggr_move(packet));
         }
         resolve([]);
