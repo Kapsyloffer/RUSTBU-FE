@@ -140,21 +140,19 @@ const Game = () => {
           
         </div>
       </div>
-      <div className={`bruh ${white ? "white" : ""}`}>
 
         <div className="SHOBU-container">
           <ShobuBoard color="Black" home="White" url={game_id} player_id={player_id}/>
           <ShobuBoard color="White" home="White" url={game_id} player_id={player_id}/>
         </div>
   
-        <img src={ropeImage} alt="Rope" />
+        <img src={ropeImage} alt="Rope" className="rope"/>
   
         <div className="SHOBU-container">
           <ShobuBoard color={!flipped ? "Black" : "White"} home="Black" url={game_id} player_id={player_id}/>
           <ShobuBoard color={!flipped ? "White" : "Black"} home="Black" url={game_id} player_id={player_id}/>
         </div>
 
-      </div>
     </div>
   );
 }  
