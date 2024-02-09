@@ -127,6 +127,7 @@ const Game = () => {
   return (
     <div>
       <div className="infotxt">
+        <div>
         <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
         <span>○ <b>{get_state().get_player("w")}</b></span><br/>
         <span>Turn:    {get_state().get_turn()}</span><br/>
@@ -134,8 +135,13 @@ const Game = () => {
         {!has_joined() && !is_full() ? (<button onClick={join}>Join game</button>) : null}
         <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
         {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
+        </div>
+        <div>
+          
+        </div>
       </div>
       <div className={`bruh ${white ? "white" : ""}`}>
+
         <div className="SHOBU-container">
           <ShobuBoard color="Black" home="White" url={game_id} player_id={player_id}/>
           <ShobuBoard color="White" home="White" url={game_id} player_id={player_id}/>
@@ -144,18 +150,10 @@ const Game = () => {
         <img src={ropeImage} alt="Rope" />
   
         <div className="SHOBU-container">
-          {!flipped ? (
-            <>
-              <ShobuBoard color="Black" home="Black" url={game_id} player_id={player_id}/>
-              <ShobuBoard color="White" home="Black" url={game_id} player_id={player_id}/>
-            </>
-          ) : (
-            <>
-              <ShobuBoard color="White" home="Black" url={game_id} player_id={player_id}/>
-              <ShobuBoard color="Black" home="Black" url={game_id} player_id={player_id}/>
-            </>
-          )}
+          <ShobuBoard color={!flipped ? "Black" : "White"} home="Black" url={game_id} player_id={player_id}/>
+          <ShobuBoard color={!flipped ? "White" : "Black"} home="Black" url={game_id} player_id={player_id}/>
         </div>
+
       </div>
     </div>
   );
