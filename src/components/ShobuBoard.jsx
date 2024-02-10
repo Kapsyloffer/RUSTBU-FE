@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import fetch_moves from "./Calls/fetch_moves";
+import fetch_moves from "./Calls/fetch_possible_moves";
 import white from "./../img/white_ferris.png";
 import black from "./../img/black_ferris.png";
 import {make_moves} from './Calls/make_moves';
