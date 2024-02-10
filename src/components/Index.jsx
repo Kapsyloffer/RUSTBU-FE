@@ -17,14 +17,13 @@ const Index = () => {
   })
     return ( 
     <div className="Index">
-      <img src={rustbu} alt="logo"></img>
+      <img src={rustbu} alt="logo" className="w-100"></img>
       <br/>
-    <input type="text" placeholder="Username" id="name"></input><button onClick={set_name}>Set username</button>
+    <input type="text" placeholder="Username" id="name"></input>
+    <button onClick={set_name} className="btn-primary">Set username</button>
     <br/>
-    <button onClick={new_game}>New Game</button>
-    <br/>
-    <br/>
-    <br/>
+    <button onClick={new_game} className="btn-primary">New Game</button>
+
     <a href="https://github.com/Kapsyloffer/RUSTBU" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" className="git_logo" alt="github logo"/></a>
   </div>
     );
