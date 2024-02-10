@@ -65,7 +65,7 @@ const Game = () => {
 
   //Flipped board display check
   const [flipped, setFlipped] = useState(Cookies.get("flipped") === "true");
-  const [white, setWhite] = useState(Cookies.get("white") === "false");
+  const [white, setWhite] = useState(Cookies.get("white") === "true");
     
   const toggleFlip = () => {
     const newFlipped = !flipped;
@@ -140,7 +140,7 @@ const Game = () => {
           
         </div>
       </div>
-      <section className="game-container">
+      <section className={`game-container ${white ? "white" : ""}`}>
         <div className="SHOBU-container">
           <ShobuBoard color="Black" home="White" url={game_id} player_id={player_id}/>
           <ShobuBoard color="White" home="White" url={game_id} player_id={player_id}/>

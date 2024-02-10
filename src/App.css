@@ -9,10 +9,6 @@ body {
   min-height: 100vh;
 }
 
-.bruh{
-  max-width: 80vw;
-}
-
 .SHOBU-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -29,8 +25,7 @@ body {
 }
 
 /*Solely used to portray the boards from White's POW.*/
-.white_disp, .white_disp img
-{
+.white_disp, .white_disp img {
   transform: rotate(180deg);
 }
 
@@ -57,8 +52,7 @@ body {
   width: 100%
 }
 
-.bruh.white, .bruh.white img
-{
+.game-container.white, .game-container.white img{
     transform: rotate(180deg);
 }
 
