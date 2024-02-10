@@ -16,15 +16,14 @@ body {
 .SHOBU-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 50px; /* Adjust the gap between squares as needed */
+  gap: 6%;
 }
 
-@media (width < 768px) {
-  .SHOBU-container {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 10px;
-  }
+.game-container {
+  max-width: 500px;
+  margin-top: 10px;
 }
+
 .SHOBU {
   margin-bottom: 20px; /* Adjust the vertical space between boards as needed */
 }
@@ -48,8 +47,6 @@ body {
 }
 
 .square {
-  width: 50px;
-  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,10 +54,8 @@ body {
 }
 
 .square img {
-  width: 50px;
-  height: 50px;
+  width: 100%
 }
-
 
 .bruh.white, .bruh.white img
 {
@@ -98,6 +93,9 @@ body {
   width: 100%;
 }
 
+.p-3 {
+  padding: 1rem;
+}
 .btn-primary {
   background-color: #000;
   color: #fff;
@@ -107,7 +105,5 @@ body {
 
 .rope {
   width: 100%;
-  max-width: 450px;
-  margin: auto;
   padding: 20px 0;
 }

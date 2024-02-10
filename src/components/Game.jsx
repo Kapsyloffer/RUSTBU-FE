@@ -125,7 +125,7 @@ const Game = () => {
   
 
   return (
-    <div>
+    <div className="p-3">
       <div className="infotxt">
         <div>
         <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
@@ -140,7 +140,7 @@ const Game = () => {
           
         </div>
       </div>
-
+      <section className="game-container">
         <div className="SHOBU-container">
           <ShobuBoard color="Black" home="White" url={game_id} player_id={player_id}/>
           <ShobuBoard color="White" home="White" url={game_id} player_id={player_id}/>
@@ -152,6 +152,7 @@ const Game = () => {
           <ShobuBoard color={!flipped ? "Black" : "White"} home="Black" url={game_id} player_id={player_id}/>
           <ShobuBoard color={!flipped ? "White" : "Black"} home="Black" url={game_id} player_id={player_id}/>
         </div>
+      </section>
 
     </div>
   );
