@@ -162,7 +162,7 @@ const Game = () => {
           <ShobuBoard color={!flipped ? "White" : "Black"} home="Black" url={game_id} player_id={player_id}/>
         </div>
       </section><br></br>
-    {has_winner() && has_joined() ? (did_i_win() ? <Winner/> : <Joever/>) : ""};
+    {has_winner() && has_joined() ? (did_i_win() ? <Winner/> : <Joever/>) : ""}
     </div>
   );
 }  
