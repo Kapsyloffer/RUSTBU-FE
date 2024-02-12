@@ -55,7 +55,6 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr, player_id)
     set_p(false);
     set_coords(null, null, null, null, null, null);
     set_state(await fetch_state(url));
-    fetch_previous_moves(url);
     }
 } 
 export {make_moves, action_p};
