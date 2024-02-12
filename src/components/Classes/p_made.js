@@ -1,3 +1,5 @@
+//THIS ENTIRE THING IS FUCKED. TODO: NUKE, ANNIHILATE, IDK, FIX.
+
 let p_made = false;
 let h = "";
 let c = "";

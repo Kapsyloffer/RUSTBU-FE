@@ -5,6 +5,7 @@ import black from "./../img/black_ferris.png";
 import {make_moves} from './Calls/make_moves';
 import { get_p, get_coords } from "./Classes/p_made";
 import { get_state } from './Global_Values/global_board';
+import {get_previous_p, get_previous_a} from "./Global_Values/prev_moves";
 
 //Previously selected tile, used for movement.
 let prev_row = null;
@@ -75,10 +76,12 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
         const isHighlighted = highlightedTile && highlightedTile.includes(tileKey);
         const hilightClass = `${isHighlighted ? (aggr ?  ('angry_highlighted') : ('highlighted')) : ("")}`;
 
+        const prev_move = check_prev_move(home, color, row, col);
+
         const rock = rock_handler(home, color, row, col);
 
         board.push(
-          <div key={tileKey} className={`square ${squareColor} ${hilightClass} `} onClick={() => handleClick(row, col)}>   
+          <div key={tileKey} className={`square ${squareColor} ${hilightClass} ${prev_move}`} onClick={() => handleClick(row, col)}>   
             {rock}
           </div>
         );
@@ -131,6 +134,14 @@ function rock_handler(home, color, row, col){
   }
 
   return rock;
+}
+
+
+function check_prev_move(home, color, row, col){
+  const prev_p = get_previous_p();
+  //const prev_a = get_previous_p();
+
+  return "";
 }
 
 export default ShobuBoard;
