@@ -3,6 +3,7 @@ import {set_p, set_coords} from "../Classes/p_made";
 import { set_state } from "../Global_Values/global_board";
 import fetch_state from "./fetch_state";
 import {get_size, set_size} from "./../Global_Values/move_size";
+import fetch_previous_moves from "./fetch_previous_moves";
 
 
 var action_p = null;

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import fetch_moves from "./Calls/fetch_moves";
+import fetch_moves from "./Calls/fetch_possible_moves";
 import white from "./../img/white_ferris.png";
 import black from "./../img/black_ferris.png";
 import {make_moves} from './Calls/make_moves';
 import { get_p, get_coords } from "./Classes/p_made";
 import { get_state } from './Global_Values/global_board';
+import {get_previous_p, get_previous_a} from "./Global_Values/prev_moves";
 
 //Previously selected tile, used for movement.
 let prev_row = null;
@@ -75,10 +76,13 @@ const ShobuBoard = ({ color, home, url, player_id}) => {
         const isHighlighted = highlightedTile && highlightedTile.includes(tileKey);
         const hilightClass = `${isHighlighted ? (aggr ?  ('angry_highlighted') : ('highlighted')) : ("")}`;
 
+        const prev_p = check_prev_move_passive(home, color, row, col);
+        const prev_a = check_prev_move_aggressive(home, color, row, col);
+
         const rock = rock_handler(home, color, row, col);
 
         board.push(
-          <div key={tileKey} className={`square ${squareColor} ${hilightClass} `} onClick={() => handleClick(row, col)}>   
+          <div key={tileKey} className={`square ${squareColor} ${hilightClass} ${prev_p}${prev_a}`} onClick={() => handleClick(row, col)}>   
             {rock}
           </div>
         );
@@ -131,6 +135,35 @@ function rock_handler(home, color, row, col){
   }
 
   return rock;
+}
+
+
+function check_prev_move_passive(home, color, row, col){
+  const prev_p = get_previous_p();
+  if(prev_p.home_colour === home 
+    && prev_p.board_colour === color
+    && (prev_p.x1 === row
+    && prev_p.y1 === col 
+    || prev_p.x2 === row 
+    && prev_p.y2 === col))
+  {
+    return "prev_passive";
+  }
+  return "";
+}
+
+function check_prev_move_aggressive(home, color, row, col){
+  const prev_a = get_previous_a();
+  if(prev_a.home_colour === home 
+    && prev_a.board_colour === color
+    && (prev_a.x1 === row
+    && prev_a.y1 === col 
+    || prev_a.x2 === row 
+    && prev_a.y2 === col))
+  {
+    return "prev_aggressive";
+  }
+  return "";
 }
 
 export default ShobuBoard;

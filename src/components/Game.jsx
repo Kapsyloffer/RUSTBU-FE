@@ -6,6 +6,8 @@ import fetch_state from "./Calls/fetch_state";
 import Cookies from "js-cookie";
 import join_game from "./Calls/join_game";
 import { set_state, get_state } from './Global_Values/global_board';
+import fetch_previous_moves from "./Calls/fetch_previous_moves";
+import {set_prev_values, get_previous_p, get_previous_a} from "./Global_Values/prev_moves";
 
 const Game = () => {
   const { game_id } = useParams();
@@ -20,12 +22,11 @@ const Game = () => {
         }, 5000);
   
         let fetched = await fetch_state(game_id);
-  
-        if (get_state().get_turn() === fetched.get_turn()) {
+        await fetch_previous_moves(game_id);
+        if (get_state().get_turn() === fetched.get_turn() && is_full()) {
           return;
         } else {
           set_state(fetched);
-          console.log(get_state());
         }
       } catch (error) {
         console.log("Error fetching game state:", error);
@@ -39,7 +40,7 @@ const Game = () => {
   
     // Fetch at intervals if the current player is not the active player
     if (get_state().who_am_i(Cookies.get("playerID") === get_state().get_turn())) {
-      const intervalId = setInterval(fetchData, 500);
+      const intervalId = setInterval(fetchData, 1500);
   
       return () => {
         clearInterval(intervalId); // Cleanup the interval when the component unmounts

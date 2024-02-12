@@ -16,13 +16,14 @@ class GameState{
     }
 
     get_player(v){
-        if (v === "b"){
-            return this.player_b;
+        switch (v){
+            case "b":
+                return this.player_b;
+            case "w":
+                return this.player_w;
+            default:
+                return null;
         }
-        if (v === "w"){
-            return this.player_w;
-        }
-        return null;
     }
 
     get_turn(){
