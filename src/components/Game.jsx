@@ -7,7 +7,9 @@ import Cookies from "js-cookie";
 import join_game from "./Calls/join_game";
 import { set_state, get_state } from './Global_Values/global_board';
 import fetch_previous_moves from "./Calls/fetch_previous_moves";
-import {set_prev_values, get_previous_p, get_previous_a} from "./Global_Values/prev_moves";
+import logo from "./../img/RUSTBU.png";
+import Joever from "./Joever";
+import Winner from "./Winner";
 
 const Game = () => {
   const { game_id } = useParams();
@@ -20,7 +22,6 @@ const Game = () => {
         setTimeout(() => {
           setTimedOut(true);
         }, 5000);
-  
         let fetched = await fetch_state(game_id);
         await fetch_previous_moves(game_id);
         if (get_state().get_turn() === fetched.get_turn() && is_full()) {
@@ -38,14 +39,13 @@ const Game = () => {
     // Initial fetch
     fetchData();
   
+    //TODO: Remove this caveman solution.
     // Fetch at intervals if the current player is not the active player
-    if (get_state().who_am_i(Cookies.get("playerID") === get_state().get_turn())) {
-      const intervalId = setInterval(fetchData, 1500);
-  
-      return () => {
-        clearInterval(intervalId); // Cleanup the interval when the component unmounts
-      };
-    }
+    const intervalId = setInterval(fetchData, 1500);
+
+    return () => {
+      clearInterval(intervalId); // Cleanup the interval when the component unmounts
+    };
   }, [game_id]);
   
   const has_winner = () =>{
@@ -96,6 +96,15 @@ const Game = () => {
     || Cookies.get("playerID") === get_state().get_player("w")));
   }
 
+  const did_i_win = () =>
+  {
+    if (get_state().get_winner() === get_state().who_am_i(Cookies.get("playerID"))) {
+      return true;
+    } else if (get_state().who_am_i(Cookies.get("playerID")) !== "Spectator") {
+      return false;
+    }
+  }
+
   useEffect(() => {
     if(get_state().get_player("w") === Cookies.get("playerID") || get_state().get_player("b") === Cookies.get("playerID"))
     {
@@ -138,7 +147,6 @@ const Game = () => {
         {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
         </div>
         <div>
-          
         </div>
       </div>
       <section className={`game-container ${white ? "white" : ""}`}>
@@ -153,8 +161,8 @@ const Game = () => {
           <ShobuBoard color={!flipped ? "Black" : "White"} home="Black" url={game_id} player_id={player_id}/>
           <ShobuBoard color={!flipped ? "White" : "Black"} home="Black" url={game_id} player_id={player_id}/>
         </div>
-      </section>
-
+      </section><br></br>
+    {has_winner() && has_joined() ? (did_i_win() ? <Winner/> : <Joever/>) : ""};
     </div>
   );
 }  

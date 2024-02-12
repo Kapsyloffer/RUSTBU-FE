@@ -10,6 +10,7 @@ const set_name = () => {
   
   Cookies.set("playerID", username, { expires: 7 });
   alert("Your name is now: " + Cookies.get("playerID"));
+  usernameInput.value = username;
 }
 
 function sanitizeInput(input) {

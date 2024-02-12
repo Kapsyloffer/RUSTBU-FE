@@ -31,6 +31,8 @@ body {
 
 .infotxt
 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   font-size: 9px;
 }
 
@@ -100,4 +102,8 @@ body {
 .rope {
   width: 100%;
   padding: 20px 0;
+}
+
+.win_img{
+  height: 150px;
 }

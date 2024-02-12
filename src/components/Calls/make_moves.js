@@ -54,7 +54,11 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr, player_id)
     action_a = null;
     set_p(false);
     set_coords(null, null, null, null, null, null);
+    
+    //This makes the game feel snappier for the active player..
+    //TODO: Get rid of this
     set_state(await fetch_state(url));
+    await fetch_previous_moves(url);
     }
 } 
 export {make_moves, action_p};
