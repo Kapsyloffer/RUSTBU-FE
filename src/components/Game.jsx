@@ -22,14 +22,11 @@ const Game = () => {
         }, 5000);
   
         let fetched = await fetch_state(game_id);
-        if (get_state().get_turn() === fetched.get_turn() && !is_full()) {
+        await fetch_previous_moves(game_id);
+        if (get_state().get_turn() === fetched.get_turn() && is_full()) {
           return;
         } else {
           set_state(fetched);
-          //console.log(get_state());
-          await fetch_previous_moves(game_id);
-          //console.log(get_previous_p());
-          //console.log(get_previous_a());
         }
       } catch (error) {
         console.log("Error fetching game state:", error);
@@ -43,7 +40,7 @@ const Game = () => {
   
     // Fetch at intervals if the current player is not the active player
     if (get_state().who_am_i(Cookies.get("playerID") === get_state().get_turn())) {
-      const intervalId = setInterval(fetchData, 500);
+      const intervalId = setInterval(fetchData, 1500);
   
       return () => {
         clearInterval(intervalId); // Cleanup the interval when the component unmounts
