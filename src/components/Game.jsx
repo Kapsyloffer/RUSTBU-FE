@@ -10,6 +10,7 @@ import fetch_previous_moves from "./Calls/fetch_previous_moves";
 import logo from "./../img/RUSTBU.png";
 import Joever from "./Joever";
 import Winner from "./Winner";
+import NameInput from "./NameInput";
 
 const Game = () => {
   const { game_id } = useParams();
@@ -48,7 +49,7 @@ const Game = () => {
     };
   }, [game_id]);
   
-  const has_winner = () =>{
+  const has_winner = () => {
     return (get_state().get_winner() !== "Empty");
   }
   
@@ -85,19 +86,16 @@ const Game = () => {
     window.location.reload();
   }
 
-  const is_full = () =>
-  {
+  const is_full = () => {
     return (get_state().get_player("b") !== "None" && get_state().get_player("w") !== "None")
   }
 
-  const has_joined = () =>
-  {
+  const has_joined = () => {
     return ((Cookies.get("playerID") === get_state().get_player("b") 
     || Cookies.get("playerID") === get_state().get_player("w")));
   }
 
-  const did_i_win = () =>
-  {
+  const did_i_win = () => {
     if (get_state().get_winner() === get_state().who_am_i(Cookies.get("playerID"))) {
       return true;
     } else if (get_state().who_am_i(Cookies.get("playerID")) !== "Spectator") {
@@ -142,11 +140,12 @@ const Game = () => {
         <span>○ <b>{get_state().get_player("w")}</b></span><br/>
         <span>Turn:    {get_state().get_turn()}</span><br/>
         <span> {has_winner() ? `Has Winner: ${get_state().get_winner()}` : ""}</span><br/>
-        {!has_joined() && !is_full() ? (<button onClick={join}>Join game</button>) : null}
+        {!has_joined() && !is_full() ? (<button onClick={join} className="btn-primary">Join game</button>) : null}
         <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
         {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
         </div>
         <div>
+          {!has_joined() && !is_full() ? <NameInput /> : ""}
         </div>
       </div>
       <section className={`game-container ${white ? "white" : ""}`}>

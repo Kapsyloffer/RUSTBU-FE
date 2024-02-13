@@ -1,34 +1,14 @@
 import new_game from "./Calls/new_game";
 import rustbu from "./../img/banner.png";
 import './../App.css';
-import { useEffect } from "react";
-import Cookies from "js-cookie";
+import NameInput from "./NameInput";
 
-const set_name = () => {
-  const usernameInput = document.getElementById("name");
-  const username = sanitizeInput(usernameInput.value);
-  
-  Cookies.set("playerID", username, { expires: 7 });
-  alert("Your name is now: " + Cookies.get("playerID"));
-  usernameInput.value = username;
-}
-
-function sanitizeInput(input) {
-  const sanitizedInput = input.replace(/[^A-Za-z0-9]/g, '');
-  const doc = new DOMParser().parseFromString(sanitizedInput, 'text/html');
-  return doc.body.textContent || "";
-}
 const Index = () => {
-  useEffect(() =>{
-    let name =  Cookies.get("playerID");
-    document.getElementById("name").value = name;
-  })
     return ( 
     <div className="Index">
       <img src={rustbu} alt="logo" className="w-100"></img>
       <br/>
-    <input type="text" placeholder="Username" id="name"></input>
-    <button onClick={set_name} className="btn-primary">Set username</button>
+      <NameInput />
     <br/>
     <button onClick={new_game} className="btn-primary">New Game</button>
 
