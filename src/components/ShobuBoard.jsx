@@ -138,32 +138,29 @@ function rock_handler(home, color, row, col){
 }
 
 
-function check_prev_move_passive(home, color, row, col){
+function check_prev_move_passive(home, color, row, col) {
   const prev_p = get_previous_p();
-  if(prev_p.home_colour === home 
-    && prev_p.board_colour === color
-    && (prev_p.x1 === row
-    && prev_p.y1 === col 
-    || prev_p.x2 === row 
-    && prev_p.y2 === col))
-  {
+  if (
+    prev_p.home_colour === home &&
+    prev_p.board_colour === color &&
+    ((prev_p.x1 === row && prev_p.y1 === col) ||
+      (prev_p.x2 === row && prev_p.y2 === col))
+  ) {
     return "prev_passive";
   }
   return "";
 }
 
-function check_prev_move_aggressive(home, color, row, col){
+function check_prev_move_aggressive(home, color, row, col) {
   const prev_a = get_previous_a();
-  if(prev_a.home_colour === home 
-    && prev_a.board_colour === color
-    && (prev_a.x1 === row
-    && prev_a.y1 === col 
-    || prev_a.x2 === row 
-    && prev_a.y2 === col))
-  {
+  if (
+    prev_a.home_colour === home &&
+    prev_a.board_colour === color &&
+    ((prev_a.x1 === row && prev_a.y1 === col) ||
+      (prev_a.x2 === row && prev_a.y2 === col))
+  ) {
     return "prev_aggressive";
   }
   return "";
 }
-
 export default ShobuBoard;

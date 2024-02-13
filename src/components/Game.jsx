@@ -7,7 +7,6 @@ import Cookies from "js-cookie";
 import join_game from "./Calls/join_game";
 import { set_state, get_state } from './Global_Values/global_board';
 import fetch_previous_moves from "./Calls/fetch_previous_moves";
-import logo from "./../img/RUSTBU.png";
 import Joever from "./Joever";
 import Winner from "./Winner";
 import NameInput from "./NameInput";
