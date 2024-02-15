@@ -2,8 +2,19 @@ import {new_game_black, new_game_white} from "./Calls/new_game";
 import rustbu from "./../img/banner.png";
 import './../App.css';
 import NameInput from "./NameInput";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 const Index = () => {
+  //Set player cookie to random String.
+  useEffect(() => {
+    const existingCookie = Cookies.get("playerID");
+    //If there is no cookie, bake a cookie.
+    if (!existingCookie || existingCookie === "") {
+      const randomString = Math.random().toString(36).substring(2, 20);
+      Cookies.set("playerID", randomString, { expires: 7 });
+    }
+  }, []);
     return ( 
     <div className="Index">
       <img src={rustbu} alt="logo" className="w-100"></img>

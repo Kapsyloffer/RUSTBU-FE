@@ -5,10 +5,15 @@ import Cookies from "js-cookie";
 const set_name = () => {
   const usernameInput = document.getElementById("name");
   const username = sanitizeInput(usernameInput.value);
-  
+  if (!username || username === "") {
+    const randomString = Math.random().toString(36).substring(2, 20);
+    Cookies.set("playerID", randomString, { expires: 7 });
+    usernameInput.value = randomString;
+  }else{
   Cookies.set("playerID", username, { expires: 7 });
-  alert("Your name is now: " + Cookies.get("playerID"));
   usernameInput.value = username;
+  }
+  alert("Your name is now: " + Cookies.get("playerID"));
 }
 
 function sanitizeInput(input) {
@@ -21,11 +26,11 @@ const NameInput = () => {
     useEffect(() => {
       const existingCookie = Cookies.get("playerID");
       //If there is no cookie, bake a cookie.
-      if (!existingCookie) {
+    if (!existingCookie || existingCookie === "") {
         const randomString = Math.random().toString(36).substring(2, 20);
         Cookies.set("playerID", randomString, { expires: 7 });
       }
-    }, []);
+    });
     useEffect(() => {
       let name = Cookies.get("playerID");
       document.getElementById("name").value = name;

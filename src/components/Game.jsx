@@ -57,7 +57,7 @@ const Game = () => {
   useEffect(() => {
     const existingCookie = Cookies.get("playerID");
     //If there is no cookie, bake a cookie.
-    if (!existingCookie) {
+    if (!existingCookie || existingCookie === "") {
       const randomString = Math.random().toString(36).substring(2, 20);
       Cookies.set("playerID", randomString, { expires: 7 });
     }
