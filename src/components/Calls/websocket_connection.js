@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws://localhost:4444/ws");
+const ws = new WebSocket("ws://16.171.250.93:4444/ws");
 
 
 ws.onopen = () => {
