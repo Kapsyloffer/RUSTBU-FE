@@ -17,7 +17,7 @@ function sanitizeInput(input) {
   return doc.body.textContent || "";
 }
 const NameInput = () => {
-  //Set player cookie to random String.
+    //Set player cookie to random String.
     useEffect(() => {
       const existingCookie = Cookies.get("playerID");
       //If there is no cookie, bake a cookie.

@@ -10,6 +10,7 @@ import fetch_previous_moves from "./Calls/fetch_previous_moves";
 import Joever from "./Joever";
 import Winner from "./Winner";
 import NameInput from "./NameInput";
+import InviteYourFriend from "./InviteYourFriend";
 
 const Game = () => {
   const { game_id } = useParams();
@@ -137,8 +138,9 @@ const Game = () => {
         <div>
         <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
         <span>○ <b>{get_state().get_player("w")}</b></span><br/>
-        <span>Turn:    {get_state().get_turn()}</span><br/>
+        {is_full() ? (<span>Turn:    {get_state().get_turn()}</span>) : null}<br/>
         {!has_joined() && !is_full() ? (<button onClick={join} className="btn-primary">Join game</button>) : null}
+        {has_joined() && !is_full() ? <InviteYourFriend /> : null}
         </div>
         <div>
         </div>
