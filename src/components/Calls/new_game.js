@@ -1,19 +1,25 @@
 import ws from "./websocket_connection";
+import Cookies from "js-cookie";
 
-function new_game()
-  {
-    const msg = {
-      type: "CreateGame",
-    };
-    ws.send(JSON.stringify(msg));
-  }
+function new_game_black()
+{
+  const msg = {
+    type: "CreateGame",
+    player_id: Cookies.get("playerID"),
+    color: "Black",
+  };
+  ws.send(JSON.stringify(msg));
+}
 
-  ws.onmessage = (event) => {
-    const msg = JSON.parse(event.data);
-    if(msg.type === "GameCreated") {
-      console.log(msg.url);
-      window.location.href = `./game/${msg.url}`;
-    }
-  }
+function new_game_white()
+{
+  const msg = {
+    type: "CreateGame",
+    player_id: Cookies.get("playerID"),
+    color: "White",
+  };
+  ws.send(JSON.stringify(msg));
+}
 
-export default new_game;
+
+export {new_game_black, new_game_white};

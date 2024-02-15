@@ -5,6 +5,7 @@ import "./boards.css";
 import Game from "./components/Game";
 import Index from "./components/Index";
 import NotFound from "./components/NotFound";
+import How2Play from "./components/How2Play";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/game/:game_id" element={<Game />} />
+        <Route path="/howtoplay" element={<How2Play />} />
         <Route path="*" element={<NotFound/>} />
       </Routes>
     </BrowserRouter>

@@ -138,13 +138,9 @@ const Game = () => {
         <span>⬤  <b>{get_state().get_player("b")}</b></span><br/>
         <span>○ <b>{get_state().get_player("w")}</b></span><br/>
         <span>Turn:    {get_state().get_turn()}</span><br/>
-        <span> {has_winner() ? `Has Winner: ${get_state().get_winner()}` : ""}</span><br/>
         {!has_joined() && !is_full() ? (<button onClick={join} className="btn-primary">Join game</button>) : null}
-        <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
-        {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
         </div>
         <div>
-          {!has_joined() && !is_full() ? <NameInput /> : ""}
         </div>
       </div>
       <section className={`game-container ${white ? "white" : ""}`}>
@@ -159,7 +155,14 @@ const Game = () => {
           <ShobuBoard color={!flipped ? "Black" : "White"} home="Black" url={game_id} player_id={player_id}/>
           <ShobuBoard color={!flipped ? "White" : "Black"} home="Black" url={game_id} player_id={player_id}/>
         </div>
-      </section><br></br>
+      </section>
+      <details >
+        <summary>Settings</summary>
+          <span>DORK Flip:    <input type="checkbox" checked={flipped} onChange={toggleFlip} /></span>
+          {!has_joined() ? (<span>White:   <input type="checkbox" checked={white} onChange={toggleWhite} /></span>) : null}
+          {!has_joined() && !is_full() ? <NameInput /> : ""}
+      </details>
+      <br />
     {has_winner() && has_joined() ? (did_i_win() ? <Winner/> : <Joever/>) : ""}
     </div>
   );

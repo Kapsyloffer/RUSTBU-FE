@@ -1,7 +1,4 @@
-import {set_state} from "./../Global_Values/global_board";
-import parse_game from "./parse_game";
-
-const ws = new WebSocket("ws://16.171.250.93:4444/ws");
+const ws = new WebSocket("ws://localhost:4444/ws");
 
 
 ws.onopen = () => {
@@ -10,15 +7,11 @@ ws.onopen = () => {
 
 ws.onmessage = (event) => {
     const msg = JSON.parse(event.data);
-        if (msg.type === "FetchedGame") {
-            try{
-            const parsed = parse_game(msg.state);
-            set_state(parsed);
-        }catch{
-
-        }    
+    if(msg.type === "GameCreated") {
+      console.log(msg.url);
+      window.location.href = `./game/${msg.url}`;
     }
-}
+  }
 
 ws.onerror = (event) => {
     console.error('WebSocket error:', event);

@@ -22,10 +22,8 @@ const NameInput = () => {
       document.getElementById("name").value = name;
     }, []);
     return ( 
-    <div className="Index">
-    <input type="text" placeholder="Username" id="name"></input>
-    <button onClick={set_name} className="btn-primary">Set username</button>
-  </div>
+    <p><input type="text" placeholder="Username" id="name"></input>
+    <button onClick={set_name} className="btn-cope">Set username</button></p>
     );
   };
   
