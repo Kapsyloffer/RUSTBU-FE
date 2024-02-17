@@ -19,6 +19,7 @@ body {
 .game-container {
   max-width: 500px;
   margin-top: 10px;
+  margin: 30px auto;
 }
 
 .SHOBU {
