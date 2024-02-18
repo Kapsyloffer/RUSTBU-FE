@@ -17,6 +17,7 @@ const How2Play = () => {
       <p>* Your aggressive move is reliant on your passive move. </p>
       <p>* Your aggressive move must move the crab the same amount of steps in the same direction as the passive move.</p>
       <p>* You may only do your passive move on a board of the opposite colour of your passive move.</p>
+      <p>* You may not push your own crabs.</p>
       <p>* You may not push 2 crabs at the same time.</p>
       <br/>
       <a href="/">Return.</a>
