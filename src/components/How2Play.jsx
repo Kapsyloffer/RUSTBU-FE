@@ -5,7 +5,7 @@ const How2Play = () => {
       <p>A turn in SHOBU consists of two moves: <br/>A <b>"passive"</b> move, and an <b>"aggressive"</b> move.</p>
       <p>Black goes first.</p>
       <p>The goal of the game is to push all of your opponent's crabs off the edge on one of the four boards.</p>
-      <p>If you lose all of your rocks on any one board, then you've lost the game.</p>
+      <p>If you lose all of your crabs on any one board, then you've lost the game.</p>
       <br/>
       <h2>Passive move:</h2>
       <p>* Your passive move, also known as the setup move, is the move which dictates how your aggressive move may look</p>
