@@ -25,10 +25,11 @@ const Index = () => {
     <button onClick={new_game_white} className="btn-primary">New Game (White)</button>
     {/* Forgive me father for i have sinned. */}
     <br/>
+      <a href="/howtoplay">How to Play/Rules</a>
     <br/>
     <br/>
 
-    <a href="https://github.com/Kapsyloffer/RUSTBU" target="_blank" rel="noreferrer"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" className="git_logo" alt="github logo"/></a>
+    <a href="/links"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" className="git_logo" alt="github logo"/></a>
   </div>
     );
   };

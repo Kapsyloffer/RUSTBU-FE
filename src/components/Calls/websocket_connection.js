@@ -8,7 +8,7 @@ ws.onopen = () => {
 ws.onmessage = (event) => {
     const msg = JSON.parse(event.data);
     if(msg.type === "GameCreated") {
-      console.log(msg.url);
+      //console.log(msg.url);
       window.location.href = `./game/${msg.url}`;
     }
   }

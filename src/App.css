@@ -6,8 +6,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .SHOBU-container {
@@ -121,4 +121,20 @@ body {
 .bigMarq{
   font-size: 20px;
   width: 80%;
+}
+
+.tutorial-txt{
+  padding: 40px;
+  background-color: rgb(174, 164, 148);
+}
+
+.gitbanners{
+  height: 300px;
+}
+
+.gitbanners:hover{
+  height: 310px;
+  border-radius: 30px;
+  filter: drop-shadow(5px 5px 10px #000000);
+  
 }

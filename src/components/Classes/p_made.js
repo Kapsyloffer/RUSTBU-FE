@@ -26,7 +26,7 @@ function set_coords(new_h, new_c, new_x1, new_y1, new_x2, new_y2) {
     x2 = new_x2;
     y2 = new_y2;
 
-    console.log("set coords: ", [[h, c], [x1, y1], [x2, y2]]);
+    //console.log("set coords: ", [[h, c], [x1, y1], [x2, y2]]);
 }
 
 function get_p(){

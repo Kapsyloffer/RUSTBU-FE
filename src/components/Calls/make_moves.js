@@ -27,7 +27,7 @@ async function make_moves(url, h, b, x1, x2, y1, y2, aggr, player_id)
             set_p(true);
             set_coords(h, b, x1, y1, x2, y2); 
             set_size((x1 - x2), (y1 - y2), action_p.board_colour);
-            console.log(get_size());  
+            //console.log(get_size());  
         }
     }else{
         action_a = {
