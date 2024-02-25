@@ -1,4 +1,4 @@
-import {new_game_black, new_game_white} from "./Calls/new_game";
+import {new_game_black, new_game_white, new_game_ai} from "./Calls/new_game";
 import rustbu from "./../img/banner.png";
 import './../App.css';
 import NameInput from "./NameInput";
@@ -10,7 +10,7 @@ const Index = () => {
   useEffect(() => {
     const existingCookie = Cookies.get("playerID");
     //If there is no cookie, bake a cookie.
-    if (!existingCookie || existingCookie === "") {
+    if (!existingCookie || existingCookie === "" || existingCookie === "ChumBucketAI") {
       const randomString = Math.random().toString(36).substring(2, 20);
       Cookies.set("playerID", randomString, { expires: 7 });
     }
@@ -23,6 +23,7 @@ const Index = () => {
     <br/>
     <button onClick={new_game_black} className="btn-primary">New Game (Black)</button>
     <button onClick={new_game_white} className="btn-primary">New Game (White)</button>
+    <button onClick={new_game_ai} className="btn-primary">New Game vs AI <br/>(Unstable + Stupid)</button>
     {/* Forgive me father for i have sinned. */}
     <br/>
       <a href="/howtoplay">How to Play/Rules</a>

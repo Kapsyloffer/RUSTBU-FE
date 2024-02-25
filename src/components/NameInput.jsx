@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 const set_name = () => {
   const usernameInput = document.getElementById("name");
   const username = sanitizeInput(usernameInput.value);
-  if (!username || username === "") {
+  if (!username || username === "" || username == "ChumBucketAI") {
     const randomString = Math.random().toString(36).substring(2, 20);
     Cookies.set("playerID", randomString, { expires: 7 });
     usernameInput.value = randomString;
@@ -26,7 +26,7 @@ const NameInput = () => {
     useEffect(() => {
       const existingCookie = Cookies.get("playerID");
       //If there is no cookie, bake a cookie.
-    if (!existingCookie || existingCookie === "") {
+    if (!existingCookie || existingCookie === "" || existingCookie === "ChumBucketAI") {
         const randomString = Math.random().toString(36).substring(2, 20);
         Cookies.set("playerID", randomString, { expires: 7 });
       }

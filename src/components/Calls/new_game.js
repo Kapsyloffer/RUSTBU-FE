@@ -21,5 +21,15 @@ function new_game_white()
   ws.send(JSON.stringify(msg));
 }
 
+function new_game_ai()
+{
+  const msg = {
+    type: "CreateGameWithAI",
+    player_id: Cookies.get("playerID"),
+    color: "Black",
+  };
+  ws.send(JSON.stringify(msg));
+}
 
-export {new_game_black, new_game_white};
+
+export {new_game_black, new_game_white, new_game_ai};
