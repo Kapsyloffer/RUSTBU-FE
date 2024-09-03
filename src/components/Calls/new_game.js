@@ -30,6 +30,18 @@ function new_game_ai()
   };
   ws.send(JSON.stringify(msg));
 }
+function get_game_lobbies()
+{
+  const msg = {type: "GetAllGames"};
+  ws.send(JSON.stringify(msg));
+  
+  ws.onmessage = (event) => {
+    const msg = JSON.parse(event.data);
+      if (msg.type === "FetchedLobbies") {
+        console.log(msg);
+      }
+  };
+}
 
 
-export {new_game_black, new_game_white, new_game_ai};
+export {new_game_black, new_game_white, new_game_ai, get_game_lobbies};

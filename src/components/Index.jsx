@@ -1,4 +1,4 @@
-import {new_game_black, new_game_white, new_game_ai} from "./Calls/new_game";
+import {new_game_black, new_game_white, new_game_ai, get_game_lobbies} from "./Calls/new_game";
 import rustbu from "./../img/banner.png";
 import './../App.css';
 import NameInput from "./NameInput";
@@ -24,6 +24,7 @@ const Index = () => {
     <button onClick={new_game_black} className="btn-primary">New Game (Black)</button>
     <button onClick={new_game_white} className="btn-primary">New Game (White)</button>
     <button onClick={new_game_ai} className="btn-primary">New Game vs AI <br/>(Unstable + Stupid)</button>
+    <button onClick={get_game_lobbies} className="btn-primary">Get Game Lobbies</button>
     {/* Forgive me father for i have sinned. */}
     <br/>
       <a href="/howtoplay">How to Play/Rules</a>
